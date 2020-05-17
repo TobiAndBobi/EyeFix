@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<link href="css/style.css" rel="stylesheet">
+		<title>Project Tobi : An Interactive Dashboard</title>		
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<h1 class="brand">Open Tobi.</h1>
+			</div>
+		</div>
+		<div class="container">
+			<!-- <div id="welcome">
+
+			</div> -->
+			<div id="settings">
+				<form id="userPreferences" method="post" enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-sm-12 col-md-2 col-lg-2">
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Open Tobii.</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Algorithms</h6>
+											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
+											<p class="m-b-0">Name <span class="f-right">John Doe</span></p>
+											<p class="m-b-0">Sex <span class="f-right">Male</span></p>
+											<p class="m-b-0">Alcoholic<span class="f-right">Yes</span></p>
+											<p class="m-b-0">Smoker<span class="f-right">No</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Features</h6>
+											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
+											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
+											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Parameters</h6>
+											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
+											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
+											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-10 col-lg-10">
+							<div class="row">
+								<div class="col-sm-12 col-md-3 col-lg-3">
+									<span>Upload CSV
+										<input type="file" class="form-control-file" name="uploadEyeGazeData" id="uploadEyeGazeData" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+									</span>
+								</div>
+								<div class="col-sm-12 col-md-3 col-lg-3">
+									<span>Upload Image
+										<input type="file" class="form-control-file" name="uploadEyeGazeImage" id="uploadEyeGazeImage" accept="image/*">
+									</span>
+								</div>
+								<div class="col-sm-12 col-md-3 col-lg-3">
+									<button id='submitEyeGazeData' type="submit">Submit Preferences</button>
+								</div>
+								<div class="col-sm-12 col-md-3 col-lg-3">
+									<button id='downloadResults' type="button">Download Results</button>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-4 col-lg-4">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Gaze Plot</h6>
+											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
+											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
+											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-4 col-lg-4">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Fixation Plot</h6>
+											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
+											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
+											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-12 col-md-4 col-lg-4">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Heat Map</h6>
+											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
+											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
+											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<h6 class="m-b-20">Heat Map</h6>
+											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
+											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
+											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
+										</div>
+									</div>
+								</div>
+							</div>		
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous">
+		</script>	
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>			
+		<script src="https://d3js.org/d3.v4.js"></script>
+		<!-- Global Variables -->
+		<script type="text/javascript" src="js/globalVariables.js"></script>
+		<!-- Common Components -->
+		<!-- <script type="text/javascript" src="js/commonComponents/displayLoading.js"></script> -->
+		<!-- Navigation Menu -->
+		<!-- <script type="text/javascript" src="js/navigationMenu/sessionSubMenu.js"></script>
+		<script type="text/javascript" src="js/navigationMenu/playersSubMenu.js"></script>
+		<script type="text/javascript" src="js/navigationMenu/sportsSubMenu.js"></script>
+		<script type="text/javascript" src="js/navigationMenu/openAndCloseMenu.js"></script>
+		<script type="text/javascript" src="js/navigationMenu/main.js"></script> -->
+		<!-- Dashboard -->
+		<!-- <script type="text/javascript" src="js/dashboard/commonComponents/createVitalHeadigs.js"></script>
+		<script type="text/javascript" src="js/dashboard/competitorPlayerVitalMonitorWidget/competitorSessionSelectionMenuWidget.js"></script>
+		<script type="text/javascript" src="js/dashboard/competitorPlayerVitalMonitorWidget/competitorSelectionMenuWidget.js"></script>
+		<script type="text/javascript" src="js/dashboard/selectedPlayerVitalMonitorWidget/vitalsHrAndBrGraph.js"></script>
+		<script type="text/javascript" src="js/dashboard/selectedPlayerVitalMonitorWidget/vitalsGraph.js"></script>
+		<script type="text/javascript" src="js/dashboard/main.js"></script> -->
+		<!-- Ajax Calls -->
+		<!-- <script type="text/javascript" src="js/ajaxCalls/fetchEcgData.js"></script>
+		<script type="text/javascript" src="js/ajaxCalls/fetchHrBrData.js"></script> -->
+		<script type="text/javascript" src="js/ajaxCalls/submitUserPreferences.js"></script>
+		<script type="text/javascript" src="js/ajaxCalls/fetchInitialData.js"></script>
+		<!-- Main Js File -->
+		<script type="text/javascript" src="js/main.js"></script>
+	</body>
+</html>

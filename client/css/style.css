@@ -1,0 +1,67 @@
+*, html {
+    margin:0;
+    padding:0;
+}
+
+body {
+    position: relative; 
+    font-family: "Lato", sans-serif;
+    /* width: 100%; */
+    height: 100vh;
+    max-height: 100vh;
+    padding: 0;
+    background-color: #E0F2F2;
+}
+
+.brand {
+    color: #0C695D;
+    font-size: 1.5em;
+}
+
+p {
+    color: #E0F2F2;
+}
+
+.row {
+    padding: 1%;
+}
+
+.container-fluid {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.container {
+    max-width: 100%;
+    width: 100%;
+}
+
+.sideBarBackground {
+    background-color: #789e9e;
+}
+
+.order-card {
+    color: #fff;
+}
+
+.bg-c-green {
+    background-color: #37AFA9;
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 0%;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 2%;
+}
+
+.order-card i {
+    font-size: 26px;
+}

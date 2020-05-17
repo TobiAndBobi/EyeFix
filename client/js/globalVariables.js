@@ -1,0 +1,12 @@
+var server = "http://127.0.0.1:5000";
+var initialData = {}
+var datasetDescription = {};
+var selectedOption = {};
+selectedOption["selectedSport"] = "AER";
+selectedOption["selectedPerson"] = "S1";
+selectedOption["selectedSession"] = "CRD1";
+selectedOption["competitorPerson"] = "competitorS1";
+selectedOption["competitorSession"] = "competitorCRD1";
+selectedOption["selectedFeature"] = "HR";
+selectedOption["selectedHome"] = true;
+var currentMenuSelection = 'originalDatasetScreePlot';
