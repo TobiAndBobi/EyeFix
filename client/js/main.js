@@ -26,5 +26,4 @@ $(function() {
     displayWelcomeScreen();
     fetchInitialData();
     submitUserPreferences();
-    // checkIfSettingChanges();
 });
