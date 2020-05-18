@@ -8,6 +8,7 @@ function fetchInitialData() {
         initialData = response;
         console.log("Initial Data Obtained");
         console.log(initialData);
-        // createSideMenu();
+        displayDashboard();
+        sideMenu();
     });       
 }

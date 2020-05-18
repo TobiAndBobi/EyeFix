@@ -14,6 +14,7 @@ def load_dataset(path):
 # Respond to Anomoly Graph Requests
 @app.route('/submitUserPreferences', methods=['GET','POST'])
 def submitUserPreferences():
+    # algorithms = str(request.form['algorithms[]'])
     print ("User Preferences Submitted")
     output = {
         "name" : "keshav"
@@ -22,10 +23,9 @@ def submitUserPreferences():
     uploadEyeGazeImage = request.files.get('uploadEyeGazeImage')
     uploadEyeGazeData.save("userDataset/" + uploadEyeGazeData.filename)
     uploadEyeGazeImage.save("userImage/" + uploadEyeGazeImage.filename)
-    # place = str(request.form['place'])
-    # print (file)
-    # print (place)
-    # chosenOption = str(request.form['chosenData'])
+    settings = request.form['settings']
+    settings = json.loads(settings)
+    print ("Chosen Settings", settings)
     response = jsonify(output)
     response.headers['Access-Control-Allow-Origin']='*'
     return response

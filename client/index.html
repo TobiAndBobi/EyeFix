@@ -10,24 +10,17 @@
 		<title>Project Tobi : An Interactive Dashboard</title>		
 	</head>
 	<body>
-		<div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-12">
-				<h1 class="brand">Open Tobi.</h1>
-			</div>
-		</div>
 		<div class="container">
-			<!-- <div id="welcome">
-
-			</div> -->
-			<div id="settings">
+			<div id="welcome">
+			</div>
+			<div id="dashboard">
 				<form id="userPreferences" method="post" enctype="multipart/form-data">
 					<div class="row">
-						<div class="col-sm-12 col-md-2 col-lg-2">
+						<div class="col-sm-12 col-md-2 col-lg-2" id="sideMenu">
 							<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded">
-											<h6 class="m-b-20">Open Tobii.</h6>
+										<div class="card-block shadow p-3 rounded" id="organisationContent">
 										</div>
 									</div>
 								</div>
@@ -35,13 +28,7 @@
 							<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded">
-											<h6 class="m-b-20">Algorithms</h6>
-											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
-											<p class="m-b-0">Name <span class="f-right">John Doe</span></p>
-											<p class="m-b-0">Sex <span class="f-right">Male</span></p>
-											<p class="m-b-0">Alcoholic<span class="f-right">Yes</span></p>
-											<p class="m-b-0">Smoker<span class="f-right">No</span></p>
+										<div class="card-block shadow p-3 rounded" id="algorithmsContent">
 										</div>
 									</div>
 								</div>
@@ -49,11 +36,7 @@
 							<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded">
-											<h6 class="m-b-20">Features</h6>
-											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
-											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
-											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
+										<div class="card-block shadow p-3 rounded" id="featureContent">
 										</div>
 									</div>
 								</div>
@@ -61,7 +44,7 @@
 							<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded">
+										<div class="card-block shadow p-3 rounded" id="parameterContent">
 											<h6 class="m-b-20">Parameters</h6>
 											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
 											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
@@ -148,12 +131,12 @@
 		<script type="text/javascript" src="js/globalVariables.js"></script>
 		<!-- Common Components -->
 		<!-- <script type="text/javascript" src="js/commonComponents/displayLoading.js"></script> -->
-		<!-- Navigation Menu -->
-		<!-- <script type="text/javascript" src="js/navigationMenu/sessionSubMenu.js"></script>
-		<script type="text/javascript" src="js/navigationMenu/playersSubMenu.js"></script>
-		<script type="text/javascript" src="js/navigationMenu/sportsSubMenu.js"></script>
-		<script type="text/javascript" src="js/navigationMenu/openAndCloseMenu.js"></script>
-		<script type="text/javascript" src="js/navigationMenu/main.js"></script> -->
+		<!-- Side Menu -->
+		<script type="text/javascript" src="js/sideMenu/parameterSubMenu.js"></script>
+		<script type="text/javascript" src="js/sideMenu/featureSubMenu.js"></script>
+		<script type="text/javascript" src="js/sideMenu/algorithmSubMenu.js"></script>
+		<script type="text/javascript" src="js/sideMenu/organisationSubMenu.js"></script>
+		<script type="text/javascript" src="js/sideMenu/main.js"></script>
 		<!-- Dashboard -->
 		<!-- <script type="text/javascript" src="js/dashboard/commonComponents/createVitalHeadigs.js"></script>
 		<script type="text/javascript" src="js/dashboard/competitorPlayerVitalMonitorWidget/competitorSessionSelectionMenuWidget.js"></script>

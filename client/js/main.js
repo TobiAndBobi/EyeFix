@@ -9,8 +9,22 @@ function fetchDataNeedForChosenOptionsDashboard() {
     closeNav();
 }
 
+function displayWelcomeScreen() {
+    $("#dashboard").hide();
+    $("#welcome").show();
+    console.log("displayWelcomeScreen");
+}
+
+function displayDashboard() {
+    $("#welcome").hide();
+    $("#dashboard").show();
+    console.log("displayDashboard");
+}
+
 // On-Load (Start of Script)
 $(function() {
+    displayWelcomeScreen();
     fetchInitialData();
     submitUserPreferences();
+    // checkIfSettingChanges();
 });
