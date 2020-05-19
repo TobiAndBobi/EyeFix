@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 import pandas as pd 
 import detector as dp
 import numpy as np
+from PIL import Image
 
 
 
-def analysis_1(file_name,x_col,y_col,time_col,distance,duration):
+def analysis_1(img_url,file_name,x_col,y_col,time_col,distance,duration):
     data = pd.read_csv(file_name) 
     data = data.dropna()
     data = data[[x_col,y_col,time_col]].reset_index()
@@ -15,6 +16,8 @@ def analysis_1(file_name,x_col,y_col,time_col,distance,duration):
     y = np.array(data[y_col])
     time = np.array(data[time_col])
     p,l = dp.fixation_detection(x,y,time,maxdist=distance, mindur=duration)
+    # im = Image.open(img_url)
+    # width, height = im.size
 
     data["label"]=int(1)
     for samples in l:
@@ -22,18 +25,20 @@ def analysis_1(file_name,x_col,y_col,time_col,distance,duration):
     min_max_scaler = preprocessing.MinMaxScaler()
     x_val = data[[x_col]].values.astype(float)
     x_scaled = min_max_scaler.fit_transform(x_val)
+    # x_scaled = np.divide(x_val,width)
     data["Scaled_X"] = pd.DataFrame(x_scaled)
     y_val = data[[y_col]].values.astype(float)
     y_scaled = min_max_scaler.fit_transform(y_val)
+    # y_scaled = np.divide(y_val,height)
     data["Scaled_X"] = pd.DataFrame(x_scaled)
-    data["Scaled_Y"] = min_max_scaler.fit_transform(y_scaled)
+    data["Scaled_Y"] = pd.DataFrame(y_scaled)
     data["algorithm"] = "algorithm1"
     data = data.drop([x_col,y_col,"index"],axis=1)
     json_ret = data.to_dict('records')
     return json_ret
 
 
-def analysis_2(file_name,x_col,y_col,time_col,velocity,accleration):
+def analysis_2(img_url,file_name,x_col,y_col,time_col,velocity,accleration):
     data1 =  pd.read_csv(file_name) 
     data1 = data1[[x_col,y_col,time_col]].dropna()
     x1 = np.array(data1[x_col])
@@ -50,7 +55,7 @@ def analysis_2(file_name,x_col,y_col,time_col,velocity,accleration):
     y_val = data1[[y_col]].values.astype(float)
     y_scaled = min_max_scaler.fit_transform(y_val)
     data1["Scaled_X"] = pd.DataFrame(x_scaled)
-    data1["Scaled_Y"] = min_max_scaler.fit_transform(y_scaled)
+    data1["Scaled_Y"] = pd.DataFrame(y_scaled)
     data1["algorithm"] = "algorithm2"
     data1.to_dict('records')
     data1 = data1.drop([x_col,y_col,"index"],axis=1)
@@ -82,7 +87,7 @@ def fixation_plot(list_of_points,algorithm):
                 y = []
     return ret
 
-def normalize(list_of_points):
+def normalize(img_url,list_of_points):
     data = pd.DataFrame(list_of_points)
     min_max_scaler = preprocessing.MinMaxScaler()
     x_val = data[["numberOfPoints"]].values.astype(float)
