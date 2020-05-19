@@ -57,4 +57,36 @@ def analysis_2(file_name,x_col,y_col,time_col,velocity,accleration):
     json_ret = data1.to_dict('records')
     return json_ret
 
+def fixation_plot(list_of_points,algorithm):
+    counter = 0
+    x = []
+    y = []
+    ret= []
+    for dict_ in list_of_points:
+        if dict_["label"] ==2:
+            counter+=1
+            x.append(dict_["Scaled_X"])
+            y.append(dict_["Scaled_Y"])
+        elif dict_["label"] == 1:
+            if x != []:
+                ret_dict={}
+                x_cen = np.sum(x)/len(x)
+                y_cen = np.sum(y)/len(y)
+                ret_dict["Scaled_X"] = x_cen
+                ret_dict["Scaled_Y"] = y_cen
+                ret_dict["numberOfPoints"] = len(x)
+                ret_dict["algorithm"] = algorithm
+                ret.append(ret_dict)
+                counter = 0
+                x = []
+                y = []
+    return ret
 
+def normalize(list_of_points):
+    data = pd.DataFrame(list_of_points)
+    min_max_scaler = preprocessing.MinMaxScaler()
+    x_val = data[["numberOfPoints"]].values.astype(float)
+    x_scaled = min_max_scaler.fit_transform(x_val)
+    data = data.drop(["numberOfPoints"],axis=1)
+    data["numberOfPoints"] = pd.DataFrame(x_scaled)
+    return data.to_dict('records')
