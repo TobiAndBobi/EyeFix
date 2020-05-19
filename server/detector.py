@@ -135,7 +135,7 @@ def fixation_detection(x, y, time, missing=0.0, maxdist=25, mindur=50):
 	return Sfix, Efix
 
 
-def saccade_detection(x, y, time, missing=0.0, minlen=5, maxvel=40, maxacc=340):
+def saccade_detection(x, y, time, missing=0.0, minlen=500, maxvel=40, maxacc=340):
 	
 	"""Detects saccades, defined as consecutive samples with an inter-sample
 	velocity of over a velocity threshold or an acceleration threshold
