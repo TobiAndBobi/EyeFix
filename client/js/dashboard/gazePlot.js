@@ -71,13 +71,13 @@ function createGazePlot(brushedData=null) {
         .attr("cx", function (d) { return x(d.Scaled_X); } )
         .attr("cy", function (d) { return y(d.Scaled_Y); } )
         .attr("r", 3)
-        .style("fill", "rgb(102, 194, 165)");
+        .style("fill", "#152329");
 
     // Add the line
     svg.append("path")
         .datum(data)
         .attr("fill", "none")
-        .attr("stroke", "rgb(252, 141, 98)")
+        .attr("stroke", "red")
         .attr("stroke-width", 1.5)
         .attr("d", d3.line()
         .x(function(d) { return x(d.Scaled_X); })

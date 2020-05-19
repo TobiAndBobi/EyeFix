@@ -125,7 +125,7 @@ function createHeatMap(brushedData=null) {
         $("#heatMapContent").append(graphKeys);
     } else {
         var graphKeys = '<br>' +
-        '<p class="m-b-0">The Heat map is useful to find most dense fixation regions</p>';
+        '<p class="m-b-0">The Heat map is useful to find most dense fixation regions</div></p>';
         $("#heatMapContent").append(graphKeys);
     }
 
