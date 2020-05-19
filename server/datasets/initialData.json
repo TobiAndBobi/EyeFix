@@ -1,0 +1,86 @@
+{
+    "settings" : [
+        {
+            "id" : 1,
+            "name" : "algorithm1",
+            "label" : "Algorithm 1",
+            "parameters" : [
+                {
+                    "id" : 1,
+                    "name" : "distance",
+                    "label" : "Maximum Distance",
+                    "type" : "number",
+                    "value" : 25
+                },
+                {
+                    "id" : 2,
+                    "name" : "duration", 
+                    "label" : "Minimum Duration",
+                    "type" : "number",
+                    "value" : 50
+                }
+            ],
+            "features" : [
+                {
+                    "id" : 1,
+                    "name" : "x",
+                    "label" : "X-Coordinate",
+                    "type" : "dropdown"
+                },
+                {
+                    "id" : 1,
+                    "name" : "y",
+                    "label" : "Y-Coordinate",
+                    "type" : "dropdown"
+                },
+                {
+                    "id" : 1,
+                    "name" : "time",
+                    "label" : "Time",
+                    "type" : "dropdown"
+                }
+            ]
+        },
+        {
+            "id" : 2,
+            "name" : "algorithm2",
+            "label" : "Algorithm 2",
+            "parameters" : [
+                {
+                    "id" : 1,
+                    "name" : "velocity", 
+                    "label" : "Maximum Velocity",
+                    "type" : "number",
+                    "value" : 40
+                },
+                {
+                    "id" : 3,
+                    "name" : "acceleration", 
+                    "label" : "Maximum Acceleration",
+                    "type" : "number",
+                    "value" : 340
+                }
+            ],
+            "features" : [
+                {
+                    "id" : 1,
+                    "name" : "x",
+                    "label" : "X-Coordinate",
+                    "type" : "dropdown"
+                },
+                {
+                    "id" : 1,
+                    "name" : "y",
+                    "label" : "Y-Coordinate",
+                    "type" : "dropdown"
+                },
+                {
+                    "id" : 1,
+                    "name" : "time",
+                    "label" : "Time",
+                    "type" : "dropdown"
+                }
+            ]
+        }
+    ]
+}

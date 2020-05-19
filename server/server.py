@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import json
 import pandas as pd
 import numpy as np
+import gazeanalysis as ga
 
 app = Flask(__name__)
 
@@ -16,9 +17,7 @@ def load_dataset(path):
 def submitUserPreferences():
     # algorithms = str(request.form['algorithms[]'])
     print ("User Preferences Submitted")
-    output = {
-        "name" : "keshav"
-    }
+    output = {}
     uploadEyeGazeData = request.files.get('uploadEyeGazeData')
     uploadEyeGazeImage = request.files.get('uploadEyeGazeImage')
     uploadEyeGazeData.save("userDataset/" + uploadEyeGazeData.filename)
@@ -26,6 +25,17 @@ def submitUserPreferences():
     settings = request.form['settings']
     settings = json.loads(settings)
     print ("Chosen Settings", settings)
+    dict_1 =[]
+    dict_2 = []
+    if "algorithm1" in settings.keys():
+        features = settings["algorithm1"]["features"]
+        parameters = settings["algorithm1"]["parameters"]
+        dict_1 = ga.analysis_1("userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["distance"]),int(parameters["duration"]))
+    if "algorithm2" in settings.keys():
+        features = settings["algorithm2"]["features"]
+        parameters = settings["algorithm2"]["parameters"]
+        dict_2 = ga.analysis_1("userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["velocity"]),int(parameters["acceleration"]))
+    output["gazeAndDensity"]=dict_1+dict_2
     response = jsonify(output)
     response.headers['Access-Control-Allow-Origin']='*'
     return response
