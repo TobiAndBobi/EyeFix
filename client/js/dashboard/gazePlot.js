@@ -71,17 +71,22 @@ function createGazePlot(brushedData=null) {
         .attr("cx", function (d) { return x(d.Scaled_X); } )
         .attr("cy", function (d) { return y(d.Scaled_Y); } )
         .attr("r", 3)
-        .style("fill", "red");
+        .style("fill", "rgb(102, 194, 165)");
 
     // Add the line
     svg.append("path")
         .datum(data)
         .attr("fill", "none")
-        .attr("stroke", "steelblue")
+        .attr("stroke", "rgb(252, 141, 98)")
         .attr("stroke-width", 1.5)
         .attr("d", d3.line()
         .x(function(d) { return x(d.Scaled_X); })
         .y(function(d) { return y(d.Scaled_Y); })
         );
+
+
+        var graphKeys = '<br>' +
+        '<p class="m-b-0">The Gaze Plot illustrates the movement of ones eyes from one place to the next</p>';
+        $("#gazePlotContent").append(graphKeys);
 
 }

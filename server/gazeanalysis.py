@@ -98,7 +98,7 @@ def normalize(img_url,list_of_points):
     # min_max_scaler = preprocessing.MinMaxScaler()
     x_val = data[["numberOfPoints"]].values.astype(float)
     # x_scaled = min_max_scaler.fit_transform(x_val)
-    x_scaled = np.multiple(np.divide(x_val,max(x_val)),2).astype(int)
+    x_scaled = np.multiply(np.divide(x_val,max(x_val)),2).astype(int)
     data = data.drop(["numberOfPoints"],axis=1)
     data["numberOfPoints"] = pd.DataFrame(x_scaled)
     return data.to_dict('records')

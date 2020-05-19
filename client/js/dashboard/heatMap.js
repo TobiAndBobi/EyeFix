@@ -110,11 +110,23 @@ function createHeatMap(brushedData=null) {
     svg.append("g")
         .call(d3.axisRight(y));
 
-    var colors = ["#69b3a2", "red", "blue"];
+    var colors = ["black", "red", "blue"];
     console.log(reshapeGraphLength);
     for (var i=0; i < reshapeGraphLength; i++ ) {
         key = reshapeGraph[i].key;
         values = reshapeGraph[i].values;
         createForEachAlgorithmDensities(svg, x, y, key, values, colors[i])
     }
+    console.log("the Count", reshapeGraphLength)
+    if (reshapeGraphLength == 2) {
+        var graphKeys = '<br>' +
+        '<p class="m-b-0"><div><div class="box black"></div>' + reshapeGraph[0].key + '</div></p>' +
+        '<p class="m-b-0"><div><div class="box red"></div>' + reshapeGraph[1].key + '</div></p>';
+        $("#heatMapContent").append(graphKeys);
+    } else {
+        var graphKeys = '<br>' +
+        '<p class="m-b-0">The Heat map is useful to find most dense fixation regions</p>';
+        $("#heatMapContent").append(graphKeys);
+    }
+
 }

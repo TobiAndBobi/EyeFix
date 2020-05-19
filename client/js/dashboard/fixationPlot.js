@@ -119,7 +119,7 @@ function createFixationPlot(brushedData=null) {
         .append("circle")
         .attr("cx", function(d) { return x(d['Scaled_X']) } )
         .attr("cy", function(d) { return y(d['Scaled_Y']) } )
-        .attr("r", 5)
+        .attr("r", function(d) { return d['numberOfPoints'] * 0.1 })
         .attr("stroke", "white");
 
     // Add a legend at the end of each line
@@ -136,7 +136,16 @@ function createFixationPlot(brushedData=null) {
             // .style("fill", function(d){ return myColor(d.key) })
             // .style("font-size", 15);
     
-    
+    if (allGroup.length == 2) {
+        var graphKeys = '<br>' +
+        '<p class="m-b-0"><div><div class="box green"></div>' + allGroup[0] + '</div></p>' +
+        '<p class="m-b-0"><div><div class="box orange"></div>' + allGroup[1] + '</div></p>';
+        $("#fixationPlotContent").append(graphKeys);
+    } else {
+        var graphKeys = '<br>' +
+        '<p class="m-b-0">The Fixation Plot illustrates time spent starring at a location</p>';
+        $("#fixationPlotContent").append(graphKeys);
+    }
     // var imageUrl = inputToURL(document.getElementById('uploadEyeGazeImage'));
     // // console.log("Url : ", url);
     // // var imageUrl = '<img src="'+ url +'" alt="Italian Trulli">';

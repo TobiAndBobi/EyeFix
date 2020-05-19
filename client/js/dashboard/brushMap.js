@@ -12,11 +12,21 @@ function test(value, finalSettingsLength){
     }
 }
 function createBrushMap() {
+    var checkCount = JSON.parse(finalSettings);
+    var finalSettingsLength = Object.keys(checkCount).length;
+    console.log("final length", finalSettingsLength);
+    console.log(finalSettings);
+    var value = 0;
+    if (finalSettingsLength == 1) {
+        value = 100;
+    } else {
+        value = 150;
+    }
 
     // set the dimensions and margins of the graph
     var margin = {top: 10, right: 30, bottom: 30, left: 60},
         width = 1400 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+        height = value - margin.top - margin.bottom;
 
     // width = 330;
     // height = 100;        
@@ -38,10 +48,6 @@ function createBrushMap() {
     var graphContainer = '<div id="brushMapGraph"></div>';
     $("#brushMapContent").append(graphContainer);
 
-    var checkCount = JSON.parse(finalSettings);
-    var finalSettingsLength = Object.keys(checkCount).length;
-    console.log("final length", finalSettingsLength);
-    console.log(finalSettings);
     // append the svg object to the body of the page
     var svg = d3.select("#brushMapGraph")
       .append("svg")
@@ -81,7 +87,7 @@ function createBrushMap() {
 
     var color = d3.scaleOrdinal()
         .domain([1, 2, "virginica" ])
-        .range([ "#440154ff",  "#fde725ff","#21908dff"]);
+        .range([ "#37AFA9",  "#152329","#21908dff"]);
     var myCircle = svg.append('g')
     .selectAll("circle")
     .data(data)
@@ -105,6 +111,15 @@ function createBrushMap() {
     // function lol() {
     //     console.log("lol");
     // }
+
+    if (finalSettingsLength == 2) {
+        var graphKeys = '<p class="m-b-0"><div class="box mildGreen"></div>Sacades</div><div><div class="box black"></div>Fixations</p>';
+        $("#brushMapContent").append(graphKeys);
+    } else {
+        var graphKeys = '<br>' +
+        '<p class="m-b-0">One can you use this time series plot highligth portion of the Gaze, Fixation and Density Graphs by the means of Linked Brushing !</p>';
+        $("#brushMapContent").append(graphKeys);
+    }
 
     // Function that is triggered when brushing is performed
     function updateChart() {
@@ -138,4 +153,6 @@ function createBrushMap() {
             reRenderTheMainGraphs(extent,x,y);
         }
     }
+
+
 }

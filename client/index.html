@@ -45,10 +45,6 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="card bg-c-green order-card">
 										<div class="card-block shadow p-3 rounded" id="parameterContent">
-											<h6 class="m-b-20">Parameters</h6>
-											<p class="m-b-0">Sport<span class="f-right">Football</span></p>
-											<p class="m-b-0">Name <span class="f-right">Molly Doe</span></p>
-											<p class="m-b-0">Sex <span class="f-right">Female</span></p>
 										</div>
 									</div>
 								</div>
@@ -56,20 +52,37 @@
 						</div>
 						<div class="col-sm-12 col-md-10 col-lg-10">
 							<div class="row">
-								<div class="col-sm-12 col-md-3 col-lg-3">
-									<span>Upload CSV
+								<div class="col-sm-12 col-md-4 col-lg-4">
+									<div class="card bg-c-darkGreen order-card">
+										<div class="card-block shadow p-3 rounded nonSideSettings">
+											<div class="row">
+												<div class="col-sm-12 col-md-6 col-lg-6">
+													<span class="input-group-btn">
+														<div class="btn btn-default custom-file-uploader">
+														  <input type="file" class="form-control-file" name="uploadEyeGazeData" id="uploadEyeGazeData" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="this.form.filename1.value = this.files.length ? this.files[0].name : ''" />
+														  Select Eye Gaze Csv
+														</div>
+													</span>
+												</div>
+												<div class="col-sm-12 col-md-6 col-lg-6">
+													<input type="text" name="filename1" class="form-control" placeholder="No file selected" readonly>
+												</div>
+											</div>											
+										</div>
+									</div>
+									<!-- <span>Upload CSV
 										<input type="file" class="form-control-file" name="uploadEyeGazeData" id="uploadEyeGazeData" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-									</span>
+									</span> -->
 								</div>
-								<div class="col-sm-12 col-md-3 col-lg-3">
-									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded">
+								<div class="col-sm-12 col-md-4 col-lg-4">
+									<div class="card bg-c-darkGreen order-card">
+										<div class="card-block shadow p-3 rounded nonSideSettings">
 											<div class="row">
 												<div class="col-sm-12 col-md-6 col-lg-6">
 													<span class="input-group-btn">
 														<div class="btn btn-default custom-file-uploader">
 														  <input type="file" class="form-control-file" name="uploadEyeGazeImage" id="uploadEyeGazeImage" accept="image/*" onchange="this.form.filename.value = this.files.length ? this.files[0].name : ''" />
-														  Select a file
+														  Select Eye Gaze Image
 														</div>
 													</span>
 												</div>
@@ -83,45 +96,54 @@
 										<input type="file" class="form-control-file" name="uploadEyeGazeImage" id="uploadEyeGazeImage" accept="image/*">
 									</span> -->
 								</div>
-								<div class="col-sm-12 col-md-3 col-lg-3">
-									<button id='submitEyeGazeData' type="submit">Submit Preferences</button>
+								<div class="col-sm-12 col-md-4 col-lg-4">
+									<div class="card bg-c-darkGreen order-card">
+										<div class="card-block shadow p-3 rounded nonSideSettings">
+											<button id='submitEyeGazeData' type="submit" class="btn btn-light">Submit Preferences</button>
+										</div>
+									</div>
+									<!-- <button id='submitEyeGazeData' type="submit">Submit Preferences</button> -->
 								</div>
-								<div class="col-sm-12 col-md-3 col-lg-3">
+								<!-- <div class="col-sm-12 col-md-3 col-lg-3">
 									<button id='downloadResults' type="button">Download Results</button>
-								</div>
+								</div> -->
 							</div>
 							<div class="row" id="visualizations">
 								<div class="col-sm-12 col-md-4 col-lg-4">
 									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded" id="gazePlotContent">
+										<div class="card-block shadow p-3 rounded mainPlots" id="gazePlotContent">
 											<h6 class="m-b-20">To View The Gaze Plot</h6>
 											<p class="m-b-0">Please select atleast one algorithm</p>
+											<p class="m-b-0">The Gaze Plot illustrates the movement of ones eyes from one place to the next</p>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-12 col-md-4 col-lg-4">
 									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded" id="fixationPlotContent">
+										<div class="card-block shadow p-3 rounded mainPlots" id="fixationPlotContent">
 											<h6 class="m-b-20">To View The Fixation Plot</h6>
 											<p class="m-b-0">Please select atleast one algorithm</p>
+											<p class="m-b-0">The Fixation Plot illustrates time spent starring at a location</p>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-12 col-md-4 col-lg-4">
 									<div class="card bg-c-green order-card">
-										<div class="card-block shadow p-3 rounded" id="heatMapContent">
+										<div class="card-block shadow p-3 rounded mainPlots" id="heatMapContent">
 											<h6 class="m-b-20">To View The Heat Map</h6>
 											<p class="m-b-0">Please select atleast one algorithm</p>
+											<p class="m-b-0">The Heat map is useful to find most dense fixation regions</p>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
-									<div class="card bg-c-green order-card">
+									<div class="card bg-c-darkGreen order-card">
 										<div class="card-block shadow p-3 rounded" id="brushMapContent">
 											<h6 class="m-b-20">To View Time Series</h6>
 											<p class="m-b-0">Please select atleast one algorithm</p>
+											<p class="m-b-0">One can you use this time series plot highligth portion of the Gaze, Fixation and Density Graphs by the means of Linked Brushing !</p>
 										</div>
 									</div>
 								</div>
