@@ -18,6 +18,7 @@ function dashboard() {
     createGazePlot();
     createFixationPlot(); 
     createHeatMap();
+    createBrushMap();
     // createOrganisationSectionOfSideMenu();
     // createAlgorithmSectionOfSideMenu();
     // createFeaturesSectionOfSideMenu();
