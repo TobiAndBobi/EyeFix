@@ -42,8 +42,8 @@ def submitUserPreferences():
         fix_2 = ga.fixation_plot(dict_2,"algorithm2")
 
     output["gazeAndDensity"]=dict_1+dict_2
-    # fix_ = ga.normalize("userImage/" + uploadEyeGazeImage.filename,fix_2+fix_1)
-    fix_ = fix_1+fix_2
+    fix_ = ga.normalize("userImage/" + uploadEyeGazeImage.filename,fix_2+fix_1)
+    # fix_ = fix_1+fix_2
     output["fixationPlot"] = fix_
     # print (output['gazeAndDensity'])
     response = jsonify(output)
