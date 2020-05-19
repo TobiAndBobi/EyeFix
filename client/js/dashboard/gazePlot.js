@@ -3,13 +3,17 @@ function inputToURL(inputElement) {
     return window.URL.createObjectURL(file);
 }
 
-function createGazePlot() {
+function createGazePlot(brushedData=null) {
     width = 430;
     height = 285;
     $("#gazePlotContent").empty();
     var title = '<h6 class="m-b-20">Gaze Plot</h6>';
     $("#gazePlotContent").append(title);
-    graphCopy = JSON.parse(JSON.stringify(graphs));
+    if (brushedData == null) {
+        graphCopy = JSON.parse(JSON.stringify(graphs));
+    } else{
+        graphCopy = JSON.parse(JSON.stringify(brushedData));
+    }
     var graph =  graphCopy["gazeAndDensity"];
     var reshapeGraph = d3.nest().key(function(d) { return d.algorithm;}).entries(graph);
     console.log("gaze",reshapeGraph.length);

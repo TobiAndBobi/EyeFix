@@ -36,8 +36,8 @@ function submitUserPreferences() {
         e.preventDefault();
         var appdir='/submitUserPreferences';
         var formData = new FormData(this);
-        var settings = aggregateUserPreferences();
-        formData.append('settings', settings);
+        finalSettings = aggregateUserPreferences();
+        formData.append('settings', finalSettings);
         $.ajax({
             url:server+appdir,
             type: 'POST',

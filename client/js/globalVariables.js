@@ -4,6 +4,7 @@ var graphs = {}
 var datasetDescription = {};
 var uploadedImageFile = null;
 var selectedOption = {};
+var finalSettings = {};
 selectedOption["selectedSport"] = "AER";
 selectedOption["selectedPerson"] = "S1";
 selectedOption["selectedSession"] = "CRD1";

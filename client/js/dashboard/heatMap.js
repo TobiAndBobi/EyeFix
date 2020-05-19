@@ -46,13 +46,18 @@ function createForEachAlgorithmDensities(svg, x, y, key, data, contourColor) {
     //       .attr("fill", function(d) { return color2(d.value); });
 }
 
-function createHeatMap() {
+function createHeatMap(brushedData=null) {
     width = 430;
     height = 285;
     $("#heatMapContent").empty();
     var title = '<h6 class="m-b-20">Heat Map</h6>';
     $("#heatMapContent").append(title);
-    graphCopy = JSON.parse(JSON.stringify(graphs));
+    if (brushedData == null) {
+        graphCopy = JSON.parse(JSON.stringify(graphs));
+    } else{
+        graphCopy = JSON.parse(JSON.stringify(brushedData));
+    }
+    // graphCopy = JSON.parse(JSON.stringify(graphs));
     var graph =  graphCopy["gazeAndDensity"];
     var reshapeGraph = d3.nest().key(function(d) { return d.algorithm;}).entries(graph);
     console.log("Modelled for Heat Map", reshapeGraph);

@@ -69,12 +69,14 @@ def fixation_plot(list_of_points,algorithm):
     counter = 0
     x = []
     y = []
+    t= []
     ret= []
     for dict_ in list_of_points:
         if dict_["label"] ==2:
             counter+=1
             x.append(dict_["Scaled_X"])
             y.append(dict_["Scaled_Y"])
+            t.append(dict_["Time"])
         elif dict_["label"] == 1:
             if x != []:
                 ret_dict={}
@@ -84,6 +86,7 @@ def fixation_plot(list_of_points,algorithm):
                 ret_dict["Scaled_Y"] = y_cen
                 ret_dict["numberOfPoints"] = len(x)
                 ret_dict["algorithm"] = algorithm
+                ret_dict["Time"] = np.mean(t)
                 ret.append(ret_dict)
                 counter = 0
                 x = []

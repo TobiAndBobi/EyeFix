@@ -3,13 +3,17 @@ function inputToURL(inputElement) {
     return window.URL.createObjectURL(file);
 }
 
-function createFixationPlot() {
+function createFixationPlot(brushedData=null) {
     width = 430;
     height = 285;
     $("#fixationPlotContent").empty();
     var title = '<h6 class="m-b-20">Fixation Plot</h6>';
     $("#fixationPlotContent").append(title);
-    graphCopy = JSON.parse(JSON.stringify(graphs));
+    if (brushedData == null) {
+        graphCopy = JSON.parse(JSON.stringify(graphs));
+    } else{
+        graphCopy = JSON.parse(JSON.stringify(brushedData));
+    }
     var graph =  graphCopy["fixationPlot"];
     var reshapeGraph = d3.nest().key(function(d) { return d.algorithm;}).entries(graph);
     var reshapeGraphLength = reshapeGraph.length;
