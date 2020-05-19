@@ -35,12 +35,13 @@ def analysis_1(img_url,file_name,x_col,y_col,time_col,distance,duration):
     data["algorithm"] = "algorithm1"
     data = data.drop([x_col,y_col,"index"],axis=1)
     json_ret = data.to_dict('records')
+    print(json_ret[0])
     return json_ret
 
 
 def analysis_2(img_url,file_name,x_col,y_col,time_col,velocity,accleration):
     data1 =  pd.read_csv(file_name) 
-    data1 = data1[[x_col,y_col,time_col]].dropna()
+    data1 = data1[[x_col,y_col,time_col]].dropna().reset_index()
     x1 = np.array(data1[x_col])
     y1 = np.array(data1[y_col])
     time1 = np.array(data1[time_col])
@@ -54,14 +55,14 @@ def analysis_2(img_url,file_name,x_col,y_col,time_col,velocity,accleration):
     x_val = data1[[x_col]].values.astype(float)
     # x_scaled = min_max_scaler.fit_transform(x_val)
     x_scaled = np.divide(x_val,width)
-    data1["Scaled_X"] = pd.DataFrame(x_scaled)
+    # data1["Scaled_X"] = pd.DataFrame(x_scaled)
     y_val = data1[[y_col]].values.astype(float)
     y_scaled = np.divide(y_val,height)
     # y_scaled = min_max_scaler.fit_transform(y_val)
     data1["Scaled_X"] = pd.DataFrame(x_scaled)
     data1["Scaled_Y"] = pd.DataFrame(y_scaled)
     data1["algorithm"] = "algorithm2"
-    data1.to_dict('records')
+    # print(data1)
     data1 = data1.drop([x_col,y_col,"index"],axis=1)
     json_ret = data1.to_dict('records')
     return json_ret

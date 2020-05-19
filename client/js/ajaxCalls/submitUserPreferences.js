@@ -44,7 +44,13 @@ function submitUserPreferences() {
             data: formData,
             cache: false,
             contentType: false,
-            processData: false
+            processData: false,
+            success: function(msg){
+                console.log( "Data Saved: " + msg );
+          },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log("some error", textStatus);
+          }
         }).done(function(response) {
             graphs = response;
             console.log("ECG Dataset Received");

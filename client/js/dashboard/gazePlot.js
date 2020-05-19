@@ -12,6 +12,7 @@ function createGazePlot() {
     graphCopy = JSON.parse(JSON.stringify(graphs));
     var graph =  graphCopy["gazeAndDensity"];
     var reshapeGraph = d3.nest().key(function(d) { return d.algorithm;}).entries(graph);
+    console.log("gaze",reshapeGraph.length);
     var data = reshapeGraph[0]["values"];
     var normalisedDataLength = data.length;
     for (var i=0; i < normalisedDataLength; i++ ) {
