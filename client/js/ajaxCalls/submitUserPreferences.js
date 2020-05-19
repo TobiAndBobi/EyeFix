@@ -46,8 +46,10 @@ function submitUserPreferences() {
             contentType: false,
             processData: false
         }).done(function(response) {
+            graphs = response;
             console.log("ECG Dataset Received");
-            console.log(response);
+            console.log(graphs);
+            dashboard();
         }); 
     });
 

@@ -1,6 +1,8 @@
 var server = "http://127.0.0.1:5000";
 var initialData = {}
+var graphs = {}
 var datasetDescription = {};
+var uploadedImageFile = null;
 var selectedOption = {};
 selectedOption["selectedSport"] = "AER";
 selectedOption["selectedPerson"] = "S1";
