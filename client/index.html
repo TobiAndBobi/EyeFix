@@ -62,9 +62,26 @@
 									</span>
 								</div>
 								<div class="col-sm-12 col-md-3 col-lg-3">
-									<span>Upload Image
+									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded">
+											<div class="row">
+												<div class="col-sm-12 col-md-6 col-lg-6">
+													<span class="input-group-btn">
+														<div class="btn btn-default custom-file-uploader">
+														  <input type="file" class="form-control-file" name="uploadEyeGazeImage" id="uploadEyeGazeImage" accept="image/*" onchange="this.form.filename.value = this.files.length ? this.files[0].name : ''" />
+														  Select a file
+														</div>
+													</span>
+												</div>
+												<div class="col-sm-12 col-md-6 col-lg-6">
+													<input type="text" name="filename" class="form-control" placeholder="No file selected" readonly>
+												</div>
+											</div>											
+										</div>
+									</div>
+									<!-- <span>Upload Image
 										<input type="file" class="form-control-file" name="uploadEyeGazeImage" id="uploadEyeGazeImage" accept="image/*">
-									</span>
+									</span> -->
 								</div>
 								<div class="col-sm-12 col-md-3 col-lg-3">
 									<button id='submitEyeGazeData' type="submit">Submit Preferences</button>
@@ -77,18 +94,24 @@
 								<div class="col-sm-12 col-md-4 col-lg-4">
 									<div class="card bg-c-green order-card">
 										<div class="card-block shadow p-3 rounded" id="gazePlotContent">
+											<h6 class="m-b-20">To View The Gaze Plot</h6>
+											<p class="m-b-0">Please select atleast one algorithm</p>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-12 col-md-4 col-lg-4">
 									<div class="card bg-c-green order-card">
 										<div class="card-block shadow p-3 rounded" id="fixationPlotContent">
+											<h6 class="m-b-20">To View The Fixation Plot</h6>
+											<p class="m-b-0">Please select atleast one algorithm</p>
 										</div>
 									</div>
 								</div>
 								<div class="col-sm-12 col-md-4 col-lg-4">
 									<div class="card bg-c-green order-card">
 										<div class="card-block shadow p-3 rounded" id="heatMapContent">
+											<h6 class="m-b-20">To View The Heat Map</h6>
+											<p class="m-b-0">Please select atleast one algorithm</p>
 										</div>
 									</div>
 								</div>
