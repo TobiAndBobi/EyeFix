@@ -11,6 +11,7 @@ pandas = "*"
 flask = "*"
 sklearn = "*"
 matpotlib = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.6"
