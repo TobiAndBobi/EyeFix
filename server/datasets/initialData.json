@@ -3,7 +3,7 @@
         {
             "id" : 1,
             "name" : "algorithm1",
-            "label" : "Algorithm 1",
+            "label" : "I-DT Algorithm 1",
             "parameters" : [
                 {
                     "id" : 1,
@@ -44,7 +44,7 @@
         {
             "id" : 2,
             "name" : "algorithm2",
-            "label" : "Algorithm 2",
+            "label" : "I-VT Algorithm 2",
             "parameters" : [
                 {
                     "id" : 1,

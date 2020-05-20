@@ -32,13 +32,14 @@ def submitUserPreferences():
     if "algorithm1" in settings.keys():
         features = settings["algorithm1"]["features"]
         parameters = settings["algorithm1"]["parameters"]
-        # dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["distance"]),int(parameters["duration"]))
-        dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["distance"]),int(parameters["duration"]))
+        dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["distance"]),int(parameters["duration"]))
+        # dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["distance"]),int(parameters["duration"]))
         fix_1 = ga.fixation_plot(dict_1,"algorithm1")
     if "algorithm2" in settings.keys():
         features = settings["algorithm2"]["features"]
         parameters = settings["algorithm2"]["parameters"]
-        dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["velocity"]),int(parameters["acceleration"]))
+        dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["velocity"]),int(parameters["acceleration"]))
+        # dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["velocity"]),int(parameters["acceleration"]))
         fix_2 = ga.fixation_plot(dict_2,"algorithm2")
 
     output["gazeAndDensity"]=dict_1+dict_2

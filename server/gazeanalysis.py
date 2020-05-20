@@ -91,6 +91,7 @@ def fixation_plot(list_of_points,algorithm):
                 counter = 0
                 x = []
                 y = []
+                t=[]
     return ret
 
 def normalize(img_url,list_of_points):

@@ -113,7 +113,7 @@ function createBrushMap() {
     // }
 
     if (finalSettingsLength == 2) {
-        var graphKeys = '<p class="m-b-0"><div class="box mildGreen"></div>Sacades</div><div><div class="box black"></div>Fixations</p>';
+        var graphKeys = '<p class="m-b-0"><div class="box mildGreen"></div>Fixations</div><div><div class="box black"></div>Sacades</p>';
         $("#brushMapContent").append(graphKeys);
     } else {
         var graphKeys = '<br>' +
