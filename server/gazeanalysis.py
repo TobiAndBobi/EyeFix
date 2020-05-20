@@ -35,7 +35,6 @@ def analysis_1(img_url,file_name,x_col,y_col,time_col,distance,duration):
     data["algorithm"] = "algorithm1"
     data = data.drop([x_col,y_col,"index"],axis=1)
     json_ret = data.to_dict('records')
-    print(json_ret[0])
     return json_ret
 
 

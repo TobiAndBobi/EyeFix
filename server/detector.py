@@ -1,5 +1,3 @@
-# Reads files as produced by PyTribe (https://github.com/esdalmaijer/PyTribe),
-
 import numpy
 
 
