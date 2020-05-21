@@ -1,5 +1,6 @@
 import numpy
-
+##https://github.com/esdalmaijer/PyGazeAnalyser/blob/master/pygazeanalyser/detectors.py
+## Algorithms from here
 
 def blink_detection(x, y, time, missing=0.0, minlen=10):
 	
