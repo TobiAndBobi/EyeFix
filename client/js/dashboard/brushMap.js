@@ -251,17 +251,35 @@ function createBrushMap() {
     // svg.append("g")
     //     .call(d3.axisLeft(y).ticks(finalSettingsLength));
 
-    var plotArea = svg.append('g')
+
+    var color = d3.scaleOrdinal()
+    .domain([1, 2, "virginica"])
+    .range(["#37AFA9", "#152329", "#21908dff"]);
+var myCircle = svg.append('g')
+    .selectAll("circle")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", function (d) { return x(d["Time"]); })
+    .attr("y", function (d) { return y(test(d["algorithm"], finalSettingsLength)); })
+    .attr("width", 3)
+    .attr("height", 30)
+    .style("fill", function (d) { return color(d["label"]) })
+    .style("opacity", 0.5);
+
+    svg.append('g')
         .attr("id", "chart")
         .attr('transform',
             'translate(' + margin.left + ',' + margin.top + ')');      
             
-    // Generate a SVG group to keep brushes
+    // svg.append("g")
+    //     .call(d3.axisLeft(y).ticks(finalSettingsLength));
+
     var gBrushes = svg.append('g')
         .attr("height", height)
         .attr("width", width)
         .attr("fill", "none")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        // .attr("transform", "translate(" + 0 + "," + 0 + ")")
         .attr("class", "brushes");
 
     // Object to store brush selections and scatter data
@@ -276,7 +294,7 @@ function createBrushMap() {
     // Add grid
     svg.append("g")
         // .attr("class", "axis axis--grid")
-        .attr("transform", "translate(50," + (height + 50) + ")")
+        .attr("transform", "translate(0," + (height) + ")")
         .call(d3.axisBottom(xScale_sec_2)
             .ticks(100)
             .tickSize(-height)
@@ -286,7 +304,7 @@ function createBrushMap() {
 
     multiplier = 0;
     // Add Axes
-    plotArea.append('g')
+    svg.append('g')
         // .attr('class', 'axis axis--x')
         .attr('transform', 'translate(0,' + height + ')')
         .call(d3.axisBottom(xScale_sec_2)
@@ -304,30 +322,17 @@ function createBrushMap() {
         .selectAll("text")
         .attr("x", -3);
 
-    // plotArea.append("g")
+    // svg.append("g")
     // .attr("transform", "translate(0," + height + ")")
     // .call(d3.axisBottom(x));
 
-    plotArea.append('g')
+    svg.append('g')
         // .attr('class', 'axis axis--y')
         .call(d3.axisLeft(y).ticks(finalSettingsLength));
 
 
 
-    var color = d3.scaleOrdinal()
-        .domain([1, 2, "virginica"])
-        .range(["#37AFA9", "#152329", "#21908dff"]);
-    var myCircle = svg.append('g')
-        .selectAll("circle")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("x", function (d) { return x(d["Time"]); })
-        .attr("y", function (d) { return y(test(d["algorithm"], finalSettingsLength)); })
-        .attr("width", 3)
-        .attr("height", 30)
-        .style("fill", function (d) { return color(d["label"]) })
-        .style("opacity", 0.5);
+
 
 
     // // Add brushing
@@ -530,15 +535,19 @@ function createBrushMap() {
                 newBrush();
             }
 
-            console.log("Brushend")
-            console.log("All brushes so far");
-            console.log(brushes);
-            console.log(d3.event.selection);
+            // console.log("Brushend")
+            // console.log("All brushes so far");
+            // console.log(brushes);
+            // if (brushes.length == 2){
+            //     console.log(brushes.map(i => xScale_sec_2.invert(i)));
+            // }
+            // console.log(mySelections);
             var d0 = d3.event.selection.map(i => xScale_sec_2.invert(i));
             console.log(d0);
 
             // Always draw brushes
             drawBrushes();
+            newMultiBrushRerender(mySelections);
         }
 
     }

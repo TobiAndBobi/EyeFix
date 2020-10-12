@@ -58,6 +58,45 @@ function reRenderTheMainGraphs(extent,x,y) {
 
 }
 
+function newMultiBrushRerender(mySelections){
+    var data = {};
+    data["fixationPlot"]=[];
+    data["gazeAndDensity"]=[];
+    graphCopy = JSON.parse(JSON.stringify(graphs));
+    for (var [key, value] of Object.entries(mySelections)){
+        // console.log(key,value);
+        x1 = value["start"];
+        x2 = value["end"];
+        console.log(x1,x2)
+        if (x1>x2){
+            var xmin = x2;
+            var xmax = x1;
+        }else{
+            var xmin = x1;
+            var xmax = x2;
+        }
+        fixation  = graphCopy["fixationPlot"];
+        fixationlength = fixation.length;
+        
+        for(var i =0; i < fixationlength;i++){
+            if(fixation[i]["Time"]>= xmin && fixation[i]["Time"]<= xmax){
+                data["fixationPlot"].push(fixation[i]);
+            }
+        }
+        gad  = graphCopy["gazeAndDensity"];
+        gadlength = gad.length;
+        for(var i =0; i < gadlength;i++){
+            if(gad[i]["Time"]>= xmin && gad[i]["Time"]<= xmax){
+                data["gazeAndDensity"].push(gad[i]);
+            }
+        }
+    }
+    console.log(data);
+    createGazePlot(data);
+    createFixationPlot(data); 
+    createHeatMap(data);
+}
+
 function dashboard() {
     createGazePlot();
     createFixationPlot(); 
