@@ -129,4 +129,29 @@ function createHeatMap(brushedData=null) {
         $("#heatMapContent").append(graphKeys);
     }
 
+    // Add brushing
+    svg
+    .call(d3.brush()                 // Add the brush feature using the d3.brush function
+        .extent([[0, 0], [width, height]]) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+        // .on("start brush", updateHeatChart) // Each time the brush selection changes, trigger the 'updateHeatChart' function
+        .on("end", heatBrushended)
+    )
+
+    function heatBrushended() {
+        if (!d3.event.selection) {
+            extent = d3.event.selection;
+            console.log("fucked");
+            createBrushMap();
+            createGazePlot();
+            createFixationPlot();
+            createHeatMap();
+        } else {
+            console.log("GG");
+            extent = d3.event.selection;
+            console.log("Draw new graph");
+            // console.log(extent);
+            reRenderBasedOnHeatMap(extent, x, y);
+        }
+    }
+
 }

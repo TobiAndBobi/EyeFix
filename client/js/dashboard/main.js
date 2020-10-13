@@ -53,10 +53,126 @@ function reRenderTheMainGraphs(extent,x,y) {
     createGazePlot(data);
     createFixationPlot(data); 
     createHeatMap(data);
-    
-
 
 }
+
+function reRenderrBasedOnFixationMap(extent,x,y) {
+    let width = 430;
+    let height = 285;
+    // console.log("first-x",x.invert(extent[0][0]));
+    // console.log("first-y",y.invert(extent[0][1]));
+    // console.log("second-x",x.invert(extent[1][0]));
+    // console.log("second-y",y.invert(extent[1][1]));
+    let graphCopy = JSON.parse(JSON.stringify(graphs));
+    // console.log(graphCopy)
+    var x1 = x.invert(extent[0][0]) / width;
+    var x2 = x.invert(extent[1][0]) / width;
+    var xmin = null;
+    var xmax = null;
+    if (x1>x2){
+        xmin = x2;
+        xmax = x1;
+    }else{
+        xmin = x1;
+        xmax = x2;
+    }
+    var y1 = y.invert(extent[0][1]) / height;
+    var y2 = y.invert(extent[1][1]) / height;
+    var ymin = null;
+    var ymax = null;
+    if (y1>y2){
+        ymin = y2;
+        ymax = y1;
+    }else{
+        ymin = y1;
+        ymax = y2;
+    }
+    console.log(xmin, xmax, ymin, ymax);
+    // console.log("Check this : ",graphCopy["fixationPlot"]);
+    // let fixation  = graphCopy["fixationPlot"];
+    // let fixationlength = fixation.length;
+    let data = {};
+    // data["fixationPlot"]=[];
+    // for(let i =0; i < fixationlength;i++){
+    //     if(fixation[i]["Time"]>= xmin && fixation[i]["Time"]<= xmax){
+    //         data["fixationPlot"].push(fixation[i]);
+    //     }
+    // }
+    let gad  = graphCopy["gazeAndDensity"];
+    let gadlength = gad.length;
+    data["gazeAndDensity"]=[];
+    for(let i =0; i < gadlength;i++){
+        if(gad[i]["Scaled_X"]>= xmin && gad[i]["Scaled_X"]<= xmax && gad[i]["Scaled_Y"]>= ymin && gad[i]["Scaled_Y"]<= ymax) {
+            data["gazeAndDensity"].push(gad[i]);
+        }
+    }
+    // console.log(graphCopy);
+    // console.log(data);
+    createGazePlot(data);
+    createHeatMap(data);
+    createBrushMap(data);
+
+}
+
+function reRenderBasedOnHeatMap(extent,x,y) {
+    let width = 430;
+    let height = 285;
+    // console.log("first-x",x.invert(extent[0][0]));
+    // console.log("first-y",y.invert(extent[0][1]));
+    // console.log("second-x",x.invert(extent[1][0]));
+    // console.log("second-y",y.invert(extent[1][1]));
+    let graphCopy = JSON.parse(JSON.stringify(graphs));
+    // console.log(graphCopy)
+    var x1 = x.invert(extent[0][0]) / width;
+    var x2 = x.invert(extent[1][0]) / width;
+    var xmin = null;
+    var xmax = null;
+    if (x1>x2){
+        xmin = x2;
+        xmax = x1;
+    }else{
+        xmin = x1;
+        xmax = x2;
+    }
+    var y1 = y.invert(extent[0][1]) / height;
+    var y2 = y.invert(extent[1][1]) / height;
+    var ymin = null;
+    var ymax = null;
+    if (y1>y2){
+        ymin = y2;
+        ymax = y1;
+    }else{
+        ymin = y1;
+        ymax = y2;
+    }
+    console.log(xmin, xmax, ymin, ymax);
+    // console.log("Check this : ",graphCopy["fixationPlot"]);
+    let fixation  = graphCopy["fixationPlot"];
+    let fixationlength = fixation.length;
+    let data = {};
+    data["fixationPlot"]=[];
+    for(let i =0; i < fixationlength;i++){
+        if(fixation[i]["Scaled_X"]>= xmin && fixation[i]["Scaled_X"]<= xmax && fixation[i]["Scaled_Y"]>= ymin && fixation[i]["Scaled_Y"]<= ymax){
+            data["fixationPlot"].push(fixation[i]);
+        }
+    }
+    let gad  = graphCopy["gazeAndDensity"];
+    let gadlength = gad.length;
+    data["gazeAndDensity"]=[];
+    for(let i =0; i < gadlength;i++){
+        if(gad[i]["Scaled_X"]>= xmin && gad[i]["Scaled_X"]<= xmax && gad[i]["Scaled_Y"]>= ymin && gad[i]["Scaled_Y"]<= ymax) {
+            data["gazeAndDensity"].push(gad[i]);
+        }
+    }
+    // console.log(graphCopy);
+    // console.log(data);
+    createGazePlot(data);
+    createFixationPlot(data);
+    createBrushMap(data);
+
+}
+
+
 
 function newMultiBrushRerender(mySelections){
     var data = {};

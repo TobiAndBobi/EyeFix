@@ -157,6 +157,8 @@
 
 // }
 
+// End of old code
+
 function test(value, finalSettingsLength) {
     if (finalSettingsLength == 1) {
         return 1;
@@ -170,7 +172,7 @@ function test(value, finalSettingsLength) {
         }
     }
 }
-function createBrushMap() {
+function createBrushMap(brushedData=null) {
     var checkCount = JSON.parse(finalSettings);
     var finalSettingsLength = Object.keys(checkCount).length;
     console.log("final length", finalSettingsLength);
@@ -193,8 +195,13 @@ function createBrushMap() {
     $("#brushMapContent").empty();
     var title = '<h6 class="m-b-20">Time Series Brush Map</h6>';
     $("#brushMapContent").append(title);
-    var graph = JSON.parse(JSON.stringify(graphs));
-    var data = graph["gazeAndDensity"];
+    // var graph = JSON.parse(JSON.stringify(graphs));
+    if (brushedData == null) {
+        graphCopy = JSON.parse(JSON.stringify(graphs));
+    } else{
+        graphCopy = JSON.parse(JSON.stringify(brushedData));
+    }
+    var data = graphCopy["gazeAndDensity"];
     var normalisedDataLength = data.length;
     for (var i = 0; i < normalisedDataLength; i++) {
         data[i]["Scaled_X"] = width * data[i]["Scaled_X"];
@@ -511,6 +518,13 @@ var myCircle = svg.append('g')
 
         function brushend() {
 
+            if (!d3.event.selection) {
+                console.log("Clear Selections");
+                createBrushMap();
+                createGazePlot();
+                createFixationPlot();
+                createHeatMap();
+            } else {
             // Figure out if our latest brush has a selection
             var lastBrushID = brushes[brushes.length - 1].id;
             var lastBrush = document.getElementById('brush-' + lastBrushID);
@@ -548,6 +562,7 @@ var myCircle = svg.append('g')
             // Always draw brushes
             drawBrushes();
             newMultiBrushRerender(mySelections);
+            }
         }
 
     }
