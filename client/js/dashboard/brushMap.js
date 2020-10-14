@@ -63,7 +63,7 @@
 //     // .attr("height", height);
 
 //     var x = d3.scaleLinear()
-//         .domain([2960950, 3005934])
+//         .domain([minTime, maxTime])
 //         .range([0, width]);
 //     svg.append("g")
 //         .attr("transform", "translate(0," + height + ")")
@@ -209,6 +209,11 @@ function createBrushMap(brushedData=null) {
     }
     // data = data.slice(0,10);
 
+    let minTime =  data[0]["Time"];
+    let maxTime =  data[normalisedDataLength-1]["Time"];
+
+    console.log("The times lol", minTime, maxTime);
+
     console.log("Modelled for Brush Map", data);
 
     var graphContainer = '<div id="brushMapGraph"></div>';
@@ -229,19 +234,19 @@ function createBrushMap(brushedData=null) {
     // .attr("height", height);
 
     var x = d3.scaleLinear()
-      .domain([2960950, 3005934])
+      .domain([minTime, maxTime])
       .range([ 0, width ]);
     // svg.append("g")
     //     .attr("transform", "translate(0," + height + ")")
     //     .call(d3.axisBottom(x));
 
     var xScale_sec_2 = d3.scaleLinear()
-        .domain([2960950, 3005934])
+        .domain([minTime, maxTime])
         .rangeRound([0, width]);
 
     var xScale_sec_ = d3.scaleLinear()
         .domain([0, width])
-        .rangeRound([2960950, 3005934]);
+        .rangeRound([minTime, maxTime]);
 
     // Add Y axis
     // var y = d3.scaleLinear()
@@ -322,7 +327,7 @@ var myCircle = svg.append('g')
                 // sec = multiplier + d.getSeconds();
                 // if (sec == 0 && min != 0) { sec = 60;  multiplier += 60;}
                 // console.log(min, sec);
-                if ((d > 2960950)&&(d%5000==0)) return d;
+                if ( ((d > minTime)&&(d%5000==0)) || (d <= minTime) ) return d;
                 return null;
             }))
         .attr("text-anchor", null)
@@ -351,8 +356,8 @@ var myCircle = svg.append('g')
     //     )
 
 
-    if (finalSettingsLength == 2) {
-        var graphKeys = '<p class="m-b-0"><div class="box mildGreen"></div>Fixations</div><div><div class="box black"></div>Sacades</p>';
+    if (finalSettingsLength == 2 || finalSettingsLength == 1) {
+        var graphKeys = '<p class="m-b-0"><div class="box mildGreen"></div>Sacades</div><div><div class="box black"></div>Fixations</p>';
         $("#brushMapContent").append(graphKeys);
     } else {
         var graphKeys = '<br>' +
@@ -424,7 +429,7 @@ var myCircle = svg.append('g')
     //return an array that contains the closest brush edge to the left and right
     function getBrushesAround(brush, brushes) {
 
-        var edge = [0, xScale_sec_(width)];
+        var edge = [minTime, xScale_sec_(width)];
 
         // console.log("\n");
 
