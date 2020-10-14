@@ -178,6 +178,8 @@ function newMultiBrushRerender(mySelections){
     var data = {};
     data["fixationPlot"]=[];
     data["gazeAndDensity"]=[];
+    var fix_time = [];
+    var gaz_time = [];
     graphCopy = JSON.parse(JSON.stringify(graphs));
     for (var [key, value] of Object.entries(mySelections)){
         // console.log(key,value);
@@ -195,15 +197,19 @@ function newMultiBrushRerender(mySelections){
         fixationlength = fixation.length;
         
         for(var i =0; i < fixationlength;i++){
-            if(fixation[i]["Time"]>= xmin && fixation[i]["Time"]<= xmax){
+            var time_ex = fixation[i]["Time"];
+            if(time_ex>= xmin && time_ex<= xmax && !(fix_time.includes(time_ex))){
                 data["fixationPlot"].push(fixation[i]);
+                fix_time.push(time_ex);
             }
         }
         gad  = graphCopy["gazeAndDensity"];
         gadlength = gad.length;
         for(var i =0; i < gadlength;i++){
-            if(gad[i]["Time"]>= xmin && gad[i]["Time"]<= xmax){
+            var time_gaze = gad[i]["Time"];
+            if(time_gaze>= xmin && time_gaze<= xmax && !(gaz_time.includes(time_gaze))){
                 data["gazeAndDensity"].push(gad[i]);
+                gaz_time.push(time_gaze);
             }
         }
     }
