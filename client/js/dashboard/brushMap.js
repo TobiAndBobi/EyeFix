@@ -142,7 +142,6 @@
 //     function brushended() {
 //         if (!d3.event.selection) {
 //             extent = d3.event.selection;
-//             console.log("fucked");
 //             createGazePlot();
 //             createFixationPlot();
 //             createHeatMap();
@@ -386,7 +385,6 @@ var myCircle = svg.append('g')
     // function brushended() {
     //     if (!d3.event.selection) {
     //         extent = d3.event.selection;
-    //         console.log("fucked");
     //         createGazePlot();
     //         createFixationPlot();
     //         createHeatMap();

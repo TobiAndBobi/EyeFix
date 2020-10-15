@@ -231,7 +231,6 @@ function createFixationPlot(brushedData=null) {
     function fixationBrushended() {
         if (!d3.event.selection) {
             extent = d3.event.selection;
-            console.log("fucked");
             createBrushMap();
             createGazePlot();
             createFixationPlot();
