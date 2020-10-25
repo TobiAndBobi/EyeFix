@@ -17,11 +17,12 @@ function createFeaturesSectionOfSideMenu() {
                 var feature = features[j];
                 var featureName = feature["name"];
                 var featureLabel = feature['label'];
+                var featureValue = feature['value'];
                 var uniqueFeatureName = algorithmName + "-features-" + featureName;
                 var featureOption = '<p class="m-b-0">' +
                     '<div class="form-group">' +
                         '<label for="' + uniqueFeatureName + '">' + featureLabel  + '</label>' + 
-                        '<input type="text" value="same" class="form-control" name="' + uniqueFeatureName + '" id="' + uniqueFeatureName + '" placeholder="Use Column name as ' + featureLabel  + '">' +
+                        '<input type="text" value="' + featureValue + '" class="form-control" name="' + uniqueFeatureName + '" id="' + uniqueFeatureName + '" placeholder="Use Column name as ' + featureLabel  + '">' +
                     '</div>' + 
                 '</p>';
                 // var featureOption = '<a class="selectedOption" id="' + algorithmName + featureName + '"href="#" onclick="checkWhichPlayerOptionIsClickedOn(this.id)"><i class="fa fa-user-circle"></i> ' + featureName + '</a>';

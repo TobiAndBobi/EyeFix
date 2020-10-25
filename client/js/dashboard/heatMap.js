@@ -76,7 +76,7 @@ function createHeatMap(brushedData=null) {
     // data = data.slice(0,10);
 
     
-    var imageUrl = inputToURL(document.getElementById('uploadEyeGazeImage'));
+    var imageUrl = inputToURL(document.getElementById('uploadeyeGazeImage'));
     // console.log("Url : ", url);
     // var imageUrl = '<img src="'+ url +'" alt="Italian Trulli">';
     // $("#gazePlotContent").append(imageL);
@@ -95,6 +95,11 @@ function createHeatMap(brushedData=null) {
     .attr("x", 0)
     .attr("y",0);
 
+    // A color scale: one color for each group
+    var myColor = d3.scaleOrdinal()
+        .domain(allGroup)
+        .range(d3.schemeSet2);
+
     // Add X axis
     var x = d3.scaleLinear()
         .domain([0, width])
@@ -110,18 +115,25 @@ function createHeatMap(brushedData=null) {
     svg.append("g")
         .call(d3.axisRight(y));
 
-    var colors = ["black", "red", "blue"];
+    var colors = ["black", "red", "blue", "yellow"];
     console.log(reshapeGraphLength);
     for (var i=0; i < reshapeGraphLength; i++ ) {
         key = reshapeGraph[i].key;
         values = reshapeGraph[i].values;
-        createForEachAlgorithmDensities(svg, x, y, key, values, colors[i])
+        createForEachAlgorithmDensities(svg, x, y, key, values, myColor(key))
     }
     console.log("the Count", reshapeGraphLength)
-    if (reshapeGraphLength == 2) {
-        var graphKeys = '<br>' +
-        '<p class="m-b-0"><div><div class="box black"></div>' + reshapeGraph[0].key + '</div></p>' +
-        '<p class="m-b-0"><div><div class="box red"></div>' + reshapeGraph[1].key + '</div></p>';
+    if (reshapeGraphLength > 0) {
+        let keyMap =  [];
+        for (var i=0; i < reshapeGraphLength; i++) {
+            // console.log(myColor(reshapeGraphLength[i]));
+            singleKey = '<span class="box" style="background-color:' + myColor(reshapeGraph[i].key) + ' ;">' + reshapeGraph[i].key + '</span>';
+            keyMap.push(singleKey);
+        }
+        var graphKeys = '<br><div class="keyMappingBox"><p class="m-b-0">' + keyMap.join('') + '</p></div>';
+        // var graphKeys = '<br>' +
+        // '<p class="m-b-0"><div><div class="box black"></div>' + reshapeGraph[0].key + '</div></p>' +
+        // '<p class="m-b-0"><div><div class="box red"></div>' + reshapeGraph[1].key + '</div></p>';
         $("#heatMapContent").append(graphKeys);
     } else {
         var graphKeys = '<br>' +

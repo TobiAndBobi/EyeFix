@@ -24,7 +24,7 @@ function checkTheIfAlgorithmSelected(algorithmName) {
 function sideMenu() {
     createOrganisationSectionOfSideMenu();
     createAlgorithmSectionOfSideMenu();
+    createParticipantSectionOfSideMenu();
     createFeaturesSectionOfSideMenu();
     createParametersSectionOfSideMenu();
-    // createSessionSectionOfSideMenu();
 }

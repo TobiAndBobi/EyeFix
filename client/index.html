@@ -36,6 +36,14 @@
 							<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="card bg-c-green order-card">
+										<div class="card-block shadow p-3 rounded" id="participantContent">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="card bg-c-green order-card">
 										<div class="card-block shadow p-3 rounded" id="featureContent">
 										</div>
 									</div>
@@ -56,17 +64,17 @@
 									<div class="card bg-c-darkGreen order-card">
 										<div class="card-block shadow p-3 rounded nonSideSettings">
 											<div class="row">
-												<div class="col-sm-12 col-md-6 col-lg-6">
+												<!-- <div class="col-sm-12 col-md-6 col-lg-6">
 													<span class="input-group-btn">
 														<div class="btn btn-default custom-file-uploader">
-														  <input type="file" class="form-control-file" name="uploadEyeGazeData" id="uploadEyeGazeData" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="this.form.filename1.value = this.files.length ? this.files[0].name : ''" />
+														  <input type="file" class="form-control-file" name="uploadEyeGazeData" id="uploadEyeGazeData" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" onchange="this.form.csv1.value = this.files.length ? this.files[0].name : ''" />
 														  Select Eye Gaze Csv
 														</div>
 													</span>
 												</div>
 												<div class="col-sm-12 col-md-6 col-lg-6">
-													<input type="text" name="filename1" class="form-control" placeholder="No file selected" readonly>
-												</div>
+													<input type="text" name="csv1" class="form-control" placeholder="No file selected" readonly>
+												</div> -->
 											</div>											
 										</div>
 									</div>
@@ -81,13 +89,13 @@
 												<div class="col-sm-12 col-md-6 col-lg-6">
 													<span class="input-group-btn">
 														<div class="btn btn-default custom-file-uploader">
-														  <input type="file" class="form-control-file" name="uploadEyeGazeImage" id="uploadEyeGazeImage" accept="image/*" onchange="this.form.filename.value = this.files.length ? this.files[0].name : ''" />
+														  <input type="file" class="form-control-file" name="uploadeyeGazeImage" id="uploadeyeGazeImage" accept="image/*" onchange="this.form.eyeGazeImage.value = this.files.length ? this.files[0].name : ''" />
 														  Select Eye Gaze Image
 														</div>
 													</span>
 												</div>
 												<div class="col-sm-12 col-md-6 col-lg-6">
-													<input type="text" name="filename" class="form-control" placeholder="No file selected" readonly>
+													<input type="text" name="eyeGazeImage" class="form-control" placeholder="No file selected" readonly>
 												</div>
 											</div>											
 										</div>
@@ -167,6 +175,7 @@
 		<!-- Side Menu -->
 		<script type="text/javascript" src="js/sideMenu/parameterSubMenu.js"></script>
 		<script type="text/javascript" src="js/sideMenu/featureSubMenu.js"></script>
+		<script type="text/javascript" src="js/sideMenu/participantSubMenu.js"></script>
 		<script type="text/javascript" src="js/sideMenu/algorithmSubMenu.js"></script>
 		<script type="text/javascript" src="js/sideMenu/organisationSubMenu.js"></script>
 		<script type="text/javascript" src="js/sideMenu/main.js"></script>

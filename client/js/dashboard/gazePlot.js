@@ -28,7 +28,7 @@ function createGazePlot(brushedData=null) {
 
     console.log("Modelled for Gaze Plot", data);
     
-    var imageUrl = inputToURL(document.getElementById('uploadEyeGazeImage'));
+    var imageUrl = inputToURL(document.getElementById('uploadeyeGazeImage'));
     // console.log("Url : ", url);
     // var imageUrl = '<img src="'+ url +'" alt="Italian Trulli">';
     // $("#gazePlotContent").append(imageL);

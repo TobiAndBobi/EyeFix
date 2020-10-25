@@ -25,18 +25,21 @@
                     "id" : 1,
                     "name" : "x",
                     "label" : "X-Coordinate",
+                    "value" : "LXpix",
                     "type" : "dropdown"
                 },
                 {
                     "id" : 1,
                     "name" : "y",
                     "label" : "Y-Coordinate",
+                    "value" : "LYpix",
                     "type" : "dropdown"
                 },
                 {
                     "id" : 1,
                     "name" : "time",
                     "label" : "Time",
+                    "value" : "Time",
                     "type" : "dropdown"
                 }
             ]
@@ -66,18 +69,21 @@
                     "id" : 1,
                     "name" : "x",
                     "label" : "X-Coordinate",
+                    "value" : "LXpix",
                     "type" : "dropdown"
                 },
                 {
                     "id" : 1,
                     "name" : "y",
                     "label" : "Y-Coordinate",
+                    "value" : "LYpix",
                     "type" : "dropdown"
                 },
                 {
                     "id" : 1,
                     "name" : "time",
                     "label" : "Time",
+                    "value" : "Time",
                     "type" : "dropdown"
                 }
             ]

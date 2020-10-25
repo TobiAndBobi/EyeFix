@@ -5,6 +5,7 @@ var datasetDescription = {};
 var uploadedImageFile = null;
 var selectedOption = {};
 var finalSettings = {};
+var numberOfParticipants = 0;
 selectedOption["selectedSport"] = "AER";
 selectedOption["selectedPerson"] = "S1";
 selectedOption["selectedSession"] = "CRD1";

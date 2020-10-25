@@ -16,36 +16,90 @@ def load_dataset(path):
 @app.route('/submitUserPreferences', methods=['GET','POST'])
 def submitUserPreferences():
     # algorithms = str(request.form['algorithms[]'])
-    print ("User Preferences Submitted")
+    # print ("Files : ", request.files.length)
+    allFormFields = json.dumps(dict(request.form))
+    allFormFields = json.loads(allFormFields)
+    eyeGazeCsvs = []
+    participantIds = []
     output = {}
-    uploadEyeGazeData = request.files.get('uploadEyeGazeData')
-    uploadEyeGazeImage = request.files.get('uploadEyeGazeImage')
-    uploadEyeGazeData.save("userDataset/" + uploadEyeGazeData.filename)
-    uploadEyeGazeImage.save("userImage/" + uploadEyeGazeImage.filename)
+    print ("User Preferences Submitted")
+    print ("Files : ", request.files)
+    print ("Files : ", allFormFields)
+    for key, value in allFormFields.items():
+        if "eyeGazeImage" in key:
+            print ("upload"+key)
+            eyeGazeImage = request.files.get("upload"+key)
+            eyeGazeImage.save("userImage/" + eyeGazeImage.filename)
+        if "eyeGazeCsv" in key: 
+            print ("upload"+key)
+            eyeGazeCsv = request.files.get("upload"+key)
+            eyeGazeCsvs.append(eyeGazeCsv.filename)
+            participantIds.append("participant" + key[-1])
+            eyeGazeCsv.save("userDataset/" + eyeGazeCsv.filename)
+        
+    # uploadEyeGazeData = request.files.get('uploadEyeGazeData')
+    # uploadEyeGazeImage = request.files.get('uploadEyeGazeImage')
+    # uploadEyeGazeData.save("userDataset/" + uploadEyeGazeData.filename)
+    # uploadEyeGazeImage.save("userImage/" + uploadEyeGazeImage.filename)
     settings = request.form['settings']
     settings = json.loads(settings)
     print ("Chosen Settings", settings)
-    dict_1 =[]
-    dict_2 = []
-    fix_1 =[]
-    fix_2 = []
-    if "algorithm1" in settings.keys():
-        features = settings["algorithm1"]["features"]
-        parameters = settings["algorithm1"]["parameters"]
-        dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["distance"]),int(parameters["duration"]))
-        # dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["distance"]),int(parameters["duration"]))
-        fix_1 = ga.fixation_plot(dict_1,"algorithm1")
-    if "algorithm2" in settings.keys():
-        features = settings["algorithm2"]["features"]
-        parameters = settings["algorithm2"]["parameters"]
-        dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["velocity"]),int(parameters["acceleration"]))
-        # dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["velocity"]),int(parameters["acceleration"]))
-        fix_2 = ga.fixation_plot(dict_2,"algorithm2")
 
-    output["gazeAndDensity"]=dict_1+dict_2
+    output["gazeAndDensity"] = []
+    output["fixationPlot"] = []
+    for eyeGaze, participantId in zip(eyeGazeCsvs, participantIds):
+        dict_1 =[]
+        dict_2 = []
+        fix_1 =[]
+        fix_2 = []
+        if "algorithm1" in settings.keys():
+            features = settings["algorithm1"]["features"]
+            parameters = settings["algorithm1"]["parameters"]
+            dict_1 = ga.analysis_1("userImage/" + eyeGazeImage.filename,"userDataset/" + eyeGaze,features["x"],features["y"],features["time"],int(parameters["distance"]),int(parameters["duration"]), "algorithm1 - " + participantId)
+            # dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["distance"]),int(parameters["duration"]))
+            fix_1 = ga.fixation_plot(dict_1,"algorithm1 - " + participantId)
+            output["gazeAndDensity"].extend(dict_1) 
+            output["fixationPlot"].extend(fix_1)
+        if "algorithm2" in settings.keys():
+            features = settings["algorithm2"]["features"]
+            parameters = settings["algorithm2"]["parameters"]
+            dict_2 = ga.analysis_2("userImage/" + eyeGazeImage.filename,"userDataset/" + eyeGaze,features["x"],features["y"],features["time"],int(parameters["velocity"]),int(parameters["acceleration"]), "algorithm2 - " + participantId)
+            # dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["velocity"]),int(parameters["acceleration"]))
+            fix_2 = ga.fixation_plot(dict_2,"algorithm2 - " + participantId)   
+            output["gazeAndDensity"].extend(dict_2)
+            output["fixationPlot"].extend(fix_2)
+        
+        
+        
+    # uploadEyeGazeData = request.files.get('uploadEyeGazeData')
+    # uploadEyeGazeImage = request.files.get('uploadEyeGazeImage')
+    # print ("Files : ", request.files)
+    # uploadEyeGazeData.save("userDataset/" + uploadEyeGazeData.filename)
+    # uploadEyeGazeImage.save("userImage/" + uploadEyeGazeImage.filename)
+    # settings = request.form['settings']
+    # settings = json.loads(settings)
+    # print ("Chosen Settings", settings)
+    # dict_1 =[]
+    # dict_2 = []
+    # fix_1 =[]
+    # fix_2 = []
+    # if "algorithm1" in settings.keys():
+    #     features = settings["algorithm1"]["features"]
+    #     parameters = settings["algorithm1"]["parameters"]
+    #     dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["distance"]),int(parameters["duration"]))
+    #     # dict_1 = ga.analysis_1("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["distance"]),int(parameters["duration"]))
+    #     fix_1 = ga.fixation_plot(dict_1,"algorithm1")
+    # if "algorithm2" in settings.keys():
+    #     features = settings["algorithm2"]["features"]
+    #     parameters = settings["algorithm2"]["parameters"]
+    #     dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,features["x"],features["y"],features["time"],int(parameters["velocity"]),int(parameters["acceleration"]))
+    #     # dict_2 = ga.analysis_2("userImage/" + uploadEyeGazeImage.filename,"userDataset/" + uploadEyeGazeData.filename,'RXpix','RYpix','Time',int(parameters["velocity"]),int(parameters["acceleration"]))
+    #     fix_2 = ga.fixation_plot(dict_2,"algorithm2")
+
+    # output["gazeAndDensity"]=dict_1+dict_2
     # fix_ = ga.normalize("userImage/" + uploadEyeGazeImage.filename,fix_2+fix_1)
-    fix_ = fix_1+fix_2
-    output["fixationPlot"] = fix_
+    # fix_ = fix_1+fix_2
+    # output["fixationPlot"] = fix_
     # print (output['gazeAndDensity'])
     response = jsonify(output)
     response.headers['Access-Control-Allow-Origin']='*'

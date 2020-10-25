@@ -8,7 +8,7 @@ from PIL import Image
 
 
 
-def analysis_1(img_url,file_name,x_col,y_col,time_col,distance,duration):
+def analysis_1(img_url,file_name,x_col,y_col,time_col,distance,duration, label):
     data = pd.read_csv(file_name) 
     data = data.dropna()
     data = data[[x_col,y_col,time_col]].reset_index()
@@ -32,13 +32,13 @@ def analysis_1(img_url,file_name,x_col,y_col,time_col,distance,duration):
     y_scaled = np.divide(y_val,height)
     data["Scaled_X"] = pd.DataFrame(x_scaled)
     data["Scaled_Y"] = pd.DataFrame(y_scaled)
-    data["algorithm"] = "algorithm1"
+    data["algorithm"] = label
     data = data.drop([x_col,y_col,"index"],axis=1)
     json_ret = data.to_dict('records')
     return json_ret
 
 
-def analysis_2(img_url,file_name,x_col,y_col,time_col,velocity,accleration):
+def analysis_2(img_url,file_name,x_col,y_col,time_col,velocity,accleration, label):
     data1 =  pd.read_csv(file_name) 
     data1 = data1[[x_col,y_col,time_col]].dropna().reset_index()
     x1 = np.array(data1[x_col])
@@ -57,7 +57,7 @@ def analysis_2(img_url,file_name,x_col,y_col,time_col,velocity,accleration):
     y_scaled = np.divide(y_val,height)
     data1["Scaled_X"] = pd.DataFrame(x_scaled)
     data1["Scaled_Y"] = pd.DataFrame(y_scaled)
-    data1["algorithm"] = "algorithm2"
+    data1["algorithm"] = label
     # print(len(data1[data1["label"]==2]))
     # print(data1)
     data1 = data1.drop([x_col,y_col,"index"],axis=1)

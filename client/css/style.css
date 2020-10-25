@@ -81,14 +81,28 @@ p {
     font-size: 26px;
 }
 
+.keyMappingBox {
+    height: 70px;
+    overflow-y : scroll; 
+}
+
 #featureContent {
-    height: 35vh;
+    height: 25vh;
+    overflow-y : scroll;
+}
+
+#participantContent {
+    height: 25vh;
     overflow-y : scroll;
 }
 
 #parameterContent {
-    height: 35vh;
+    height: 20vh;
     overflow-y : scroll;
+}
+
+.participantFileUploadHint {
+    font-size: small;
 }
 
 .scrollbar
@@ -131,10 +145,12 @@ p {
 }
 
 .box {
-    float: left;
-    height: 20px;
-    width: 20px;
-    margin-bottom: 15px;
+    /* float: left; */
+    display: inline-block;
+    /* height: 20px; */
+    width: 48%;
+    margin: 1%;
+    /* margin-bottom: 15px; */
     border: 1px solid black;
     clear: both;
   }

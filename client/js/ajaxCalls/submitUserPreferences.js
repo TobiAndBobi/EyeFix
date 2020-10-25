@@ -53,7 +53,7 @@ function submitUserPreferences() {
           }
         }).done(function(response) {
             graphs = response;
-            console.log("ECG Dataset Received");
+            console.log("Eye Tracking Submission Results : ");
             console.log(graphs);
             dashboard();
         }); 

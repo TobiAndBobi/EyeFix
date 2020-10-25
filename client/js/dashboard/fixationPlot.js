@@ -53,7 +53,7 @@ function createFixationPlot(brushedData=null) {
 
     console.log('lol',dataReady);
 
-    var imageUrl = inputToURL(document.getElementById('uploadEyeGazeImage'));
+    var imageUrl = inputToURL(document.getElementById('uploadeyeGazeImage'));
     var graphContainer = '<div id="fixationPlotGraph"></div>';
     $("#fixationPlotContent").append(graphContainer);
     var svg = d3.select("#fixationPlotGraph")
@@ -119,8 +119,21 @@ function createFixationPlot(brushedData=null) {
         .append("circle")
         .attr("cx", function(d) { return x(d['Scaled_X']) } )
         .attr("cy", function(d) { return y(d['Scaled_Y']) } )
-        .attr("r", function(d) { return d['numberOfPoints'] * 0.1 })
-        .attr("stroke", "white");
+        .attr("r", function(d) {
+            if  (d['numberOfPoints'] > 500) {
+                return 50;
+            } else {
+                return d['numberOfPoints'] * 0.1;
+            } 
+        })
+        .attr("stroke", "white")
+        .style("opacity", function(d){ 
+            if  (d['numberOfPoints'] > 100) {
+                return 0.5;
+            } else {
+                return 1;
+            } 
+        });
 
     // Add a legend at the end of each line
     svg
@@ -136,10 +149,18 @@ function createFixationPlot(brushedData=null) {
             // .style("fill", function(d){ return myColor(d.key) })
             // .style("font-size", 15);
     
-    if (allGroup.length == 2) {
-        var graphKeys = '<br>' +
-        '<p class="m-b-0"><div><div class="box green"></div>' + allGroup[0] + '</div></p>' +
-        '<p class="m-b-0"><div><div class="box orange"></div>' + allGroup[1] + '</div></p>';
+    if (allGroup.length > 0) {
+        console.log("allGroup Length", allGroup.length);
+        let keyMap =  [];
+        for (var i=0; i < allGroup.length; i++) {
+            console.log(myColor(allGroup[i]));
+            singleKey = '<span class="box" style="background-color:' + myColor(allGroup[i]) + ' ;">' + allGroup[i] + '</span>';
+            keyMap.push(singleKey);
+        }
+        var graphKeys = '<br><div class="keyMappingBox"><p class="m-b-0">' + keyMap.join('') + '</p></div>';
+        // var graphKeys = '<br>' +
+        // '<p class="m-b-0"><div><div class="box green"></div>' + allGroup[0] + '</div></p>' +
+        // '<p class="m-b-0"><div><div class="box orange"></div>' + allGroup[1] + '</div></p>';
         $("#fixationPlotContent").append(graphKeys);
     } else {
         var graphKeys = '<br>' +
