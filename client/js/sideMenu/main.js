@@ -27,4 +27,5 @@ function sideMenu() {
     createParticipantSectionOfSideMenu();
     createFeaturesSectionOfSideMenu();
     createParametersSectionOfSideMenu();
+    createActiveParticipantSectionOfTopMenu();
 }

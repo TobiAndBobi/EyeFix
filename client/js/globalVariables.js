@@ -14,3 +14,4 @@ selectedOption["competitorSession"] = "competitorCRD1";
 selectedOption["selectedFeature"] = "HR";
 selectedOption["selectedHome"] = true;
 var currentMenuSelection = 'originalDatasetScreePlot';
+var originalGraphs = {};

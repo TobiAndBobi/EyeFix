@@ -53,6 +53,7 @@ function submitUserPreferences() {
           }
         }).done(function(response) {
             graphs = response;
+            originalGraphs = response;
             console.log("Eye Tracking Submission Results : ");
             console.log(graphs);
             dashboard();

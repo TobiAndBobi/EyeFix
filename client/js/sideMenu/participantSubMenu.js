@@ -62,8 +62,8 @@ function createParticipantSectionOfSideMenu() {
 }
 
 function addParticipant() {   
-    console.log("game over");
-    console.log($("#participantContent participantList"));
+    // console.log("game over");
+    // console.log($("#participantContent participantList"));
     var participantId = ($("#participantList").children().length + 1).toString();
     var subTitle = '<p class="m-b-0">Participant : ' + participantId + '</p>'; 
     var eyeGazeCsvSelection = "uploadeyeGazeCsv" + participantId;
@@ -99,6 +99,7 @@ function addParticipant() {
     var group = "participant" + participantId;
     var participant = '<div id="'+ group +'">' + subTitle + participantCsvField + '</div>';
     $("#participantList").append(participant);
+    addActiveParticipant();
 }
 
 function removeParticipant() {
@@ -107,5 +108,6 @@ function removeParticipant() {
         let group = "#participant" + participantId;
         $(group).empty();
         $(group).remove();
+        removeActiveParticipant();
     }
 }

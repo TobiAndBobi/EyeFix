@@ -180,7 +180,7 @@ function newMultiBrushRerender(mySelections){
     data["gazeAndDensity"]=[];
     var fix_time = [];
     var gaz_time = [];
-    graphCopy = JSON.parse(JSON.stringify(graphs));
+    var graphCopy = JSON.parse(JSON.stringify(graphs));
     for (var [key, value] of Object.entries(mySelections)){
         // console.log(key,value);
         x1 = value["start"];
@@ -230,3 +230,6 @@ function dashboard() {
     // createParametersSectionOfSideMenu();
     // createSessionSectionOfSideMenu();
 }
+
+// To capture and render user selected participants
+activeParticipantCheckboxListener();
