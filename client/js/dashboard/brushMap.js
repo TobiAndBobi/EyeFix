@@ -157,8 +157,17 @@
 // }
 
 // End of old code
-
+var count_1 = {};
+var max_count = 0;
 function test(value, finalSettingsLength) {
+    if (value in count_1){
+        return count_1[value];
+    }
+    else {
+        max_count = max_count + 1;
+        count_1[value] = max_count;
+        return count_1[value];
+    }
     if (finalSettingsLength == 1) {
         return 1;
     } else {
@@ -171,16 +180,59 @@ function test(value, finalSettingsLength) {
         }
     }
 }
+
+var time_dict = {};
+
+function colorSelection(label,algorithm,myColor,color){
+    if(label == 1){
+        return color(label);
+    } else {
+        return myColor(algorithm);
+    }
+}
+
+
+function get_min_max_of_each_algorithm(data){
+    for(var i = 0; i < data.length ; i++){
+        var algorithm = data[i]["algorithm"];
+        // if (i == 1){
+        //     // console.log("dddll");
+        // }
+        if( !(algorithm in time_dict)){
+            // if (i == 0){
+            //     console.log("lll");
+            // }
+            var Time = {};
+            Time["min_time"] = Infinity;
+            Time["max_time"] = -Infinity;
+            // time_dict[algorithm].push(Time);
+            time_dict[algorithm] = Time;
+            // time_dict[algorithm]["min_time"] = Infinity;
+            // time_dict[algorithm]["max_time"] = -Infinity;
+        }
+        // if (i==0){
+        //     console.log(data[i]["Time"] < time_dict[algorithm]["min_time"]);
+        //     console.log(data[i]["Time"],time_dict[algorithm][0]["min_time"]);
+        // }
+        if(data[i]["Time"] < time_dict[algorithm]["min_time"] ){
+            time_dict[algorithm]["min_time"] = data[i]["Time"];
+        }
+        if(data[i]["Time"] > time_dict[algorithm]["max_time"]){
+            time_dict[algorithm]["max_time"] = data[i]["Time"];
+        }
+    }
+}
+
 function createBrushMap(brushedData=null) {
     var checkCount = JSON.parse(finalSettings);
     var finalSettingsLength = Object.keys(checkCount).length;
-    console.log("final length", finalSettingsLength);
-    console.log(finalSettings);
+    // console.log("final length", finalSettingsLength);
+    // console.log(finalSettings);
     var value = 0;
     if (finalSettingsLength == 1) {
         value = 100;
     } else {
-        value = 150;
+        value = 600;
     }
 
     // set the dimensions and margins of the graph
@@ -201,19 +253,46 @@ function createBrushMap(brushedData=null) {
         graphCopy = JSON.parse(JSON.stringify(brushedData));
     }
     var data = graphCopy["gazeAndDensity"];
+    var reshapeGraph = d3.nest().key(function(d) { return d.algorithm;}).entries(data);
+    var reshapeGraphLength = reshapeGraph.length;
+    var allGroup = []; 
+    for (var i=0; i < reshapeGraphLength; i++ ) {
+        allGroup.push(reshapeGraph[i].key);
+    }
+    var myColor = d3.scaleOrdinal()
+        .domain(allGroup)
+        .range(d3.schemeSet2);
     var normalisedDataLength = data.length;
+    // console.log(data);
+    var minTime = Infinity;
+    var maxTime = -Infinity;
+    // console.log(normalisedDataLength);
+    get_min_max_of_each_algorithm(data);
+    var algo_max = "";
+    // console.log(time_dict);
     for (var i = 0; i < normalisedDataLength; i++) {
-        data[i]["Scaled_X"] = width * data[i]["Scaled_X"];
-        data[i]["Scaled_Y"] = height * data[i]["Scaled_Y"];
+        if(data[i]["Time"] < minTime ){
+            minTime = data[i]["Time"];
+        }
+        if(data[i]["Time"] > maxTime){
+            maxTime = data[i]["Time"];
+            algo_max = data[i]["algorithm"];
+        }
+        algorithm = data[i]["algorithm"];
+        data[i]["Time"] = data[i]["Time"] - time_dict[algorithm]["min_time"];
+
+        // data[i]["Scaled_X"] = width * data[i]["Scaled_X"];
+        // data[i]["Scaled_Y"] = height * data[i]["Scaled_Y"];
     }
     // data = data.slice(0,10);
+    minTime = 0;
+    maxTime = time_dict[algo_max]["max_time"] - time_dict[algo_max]["min_time"];
+    // let minTime =  data[0]["Time"];
+    // let maxTime =  data[normalisedDataLength-1]["Time"];
 
-    let minTime =  data[0]["Time"];
-    let maxTime =  data[normalisedDataLength-1]["Time"];
-
-    console.log("The times lol", minTime, maxTime);
-
-    console.log("Modelled for Brush Map", data);
+    // console.log("The times lol", minTime, maxTime);
+    // console.log("secon",data[0]["Time"],data[normalisedDataLength-1]["Time"]);
+    // console.log("Modelled for Brush Map", data);
 
     var graphContainer = '<div id="brushMapGraph"></div>';
     $("#brushMapContent").append(graphContainer);
@@ -255,7 +334,9 @@ function createBrushMap(brushedData=null) {
     // svg.append("g")
     //     .call(d3.axisLeft(y).tickSize(-width*1.3).ticks(7))
     //     .select(".domain").remove();
-
+    // finalSettingsLength = 4;
+    // finalSettingsLength = time_dict.length;
+    finalSettingsLength = Object.keys(time_dict).length;
     var y = d3.scaleLinear()
         .domain([0, finalSettingsLength])
         .range([height, 0]);
@@ -265,7 +346,7 @@ function createBrushMap(brushedData=null) {
 
     var color = d3.scaleOrdinal()
     .domain([1, 2, "virginica"])
-    .range(["#37AFA9", "#152329", "#21908dff"]);
+    .range([ "#152329", "#37AFA9", "#21908dff"]);
 var myCircle = svg.append('g')
     .selectAll("circle")
     .data(data)
@@ -275,9 +356,10 @@ var myCircle = svg.append('g')
     .attr("y", function (d) { return y(test(d["algorithm"], finalSettingsLength)); })
     .attr("width", 3)
     .attr("height", 30)
-    .style("fill", function (d) { return color(d["label"]) })
+    .style("fill", function (d) { return colorSelection(d["label"],d["algorithm"],myColor,color) })
     .style("opacity", 0.5);
-
+    // console.log("count_1",count_1);
+    // console.log(max_count);
     svg.append('g')
         .attr("id", "chart")
         .attr('transform',
@@ -355,8 +437,8 @@ var myCircle = svg.append('g')
     //     )
 
 
-    if (finalSettingsLength == 2 || finalSettingsLength == 1) {
-        var graphKeys = '<p class="m-b-0"><div class="box mildGreen"></div>Sacades</div><div><div class="box black"></div>Fixations</p>';
+    if (finalSettingsLength == 2 || finalSettingsLength == 1 || finalSettingsLength == 3 || finalSettingsLength == 4) {
+        var graphKeys = '<p class="m-b-0">Black parts of the graph are saccades, The colored parts are fixations of the respective algorithm/participants</p>';
         $("#brushMapContent").append(graphKeys);
     } else {
         var graphKeys = '<br>' +
@@ -560,7 +642,7 @@ var myCircle = svg.append('g')
             // }
             // console.log(mySelections);
             var d0 = d3.event.selection.map(i => xScale_sec_2.invert(i));
-            console.log(d0);
+            // console.log(d0);
 
             // Always draw brushes
             drawBrushes();
