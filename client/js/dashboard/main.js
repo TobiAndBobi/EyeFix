@@ -174,7 +174,7 @@ function reRenderBasedOnHeatMap(extent,x,y) {
 
 
 
-function newMultiBrushRerender(mySelections){
+function newMultiBrushRerender(mySelections,time_dict){
     var data = {};
     data["fixationPlot"]=[];
     data["gazeAndDensity"]=[];
@@ -198,7 +198,7 @@ function newMultiBrushRerender(mySelections){
         
         for(var i =0; i < fixationlength;i++){
             var time_ex = fixation[i]["Time"];
-            if(time_ex>= xmin && time_ex<= xmax && !(fix_time.includes(time_ex))){
+            if(time_ex>= (xmin+time_dict[fixation[i]["algorithm"]]["min_time"]) && time_ex<= xmax + (time_dict[fixation[i]["algorithm"]]["min_time"]) && !(fix_time.includes(time_ex))){
                 data["fixationPlot"].push(fixation[i]);
                 fix_time.push(time_ex);
             }
@@ -207,7 +207,7 @@ function newMultiBrushRerender(mySelections){
         gadlength = gad.length;
         for(var i =0; i < gadlength;i++){
             var time_gaze = gad[i]["Time"];
-            if(time_gaze>= xmin && time_gaze<= xmax && !(gaz_time.includes(time_gaze))){
+            if(time_gaze>= (xmin+time_dict[gad[i]["algorithm"]]["min_time"]) && time_gaze<= xmax + (time_dict[gad[i]["algorithm"]]["min_time"]) && !(gaz_time.includes(time_gaze))){
                 data["gazeAndDensity"].push(gad[i]);
                 gaz_time.push(time_gaze);
             }

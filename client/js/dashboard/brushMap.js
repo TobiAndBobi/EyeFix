@@ -646,7 +646,7 @@ var myCircle = svg.append('g')
 
             // Always draw brushes
             drawBrushes();
-            newMultiBrushRerender(mySelections);
+            newMultiBrushRerender(mySelections,time_dict);
             }
         }
 
