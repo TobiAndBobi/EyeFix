@@ -108,7 +108,7 @@ function reRenderrBasedOnFixationMap(extent,x,y) {
     }
     // console.log(graphCopy);
     // console.log(data);
-    createGazePlot(data);
+    // createGazePlot(data);
     createHeatMap(data);
     createBrushMap(data);
 
@@ -166,7 +166,7 @@ function reRenderBasedOnHeatMap(extent,x,y) {
     }
     // console.log(graphCopy);
     // console.log(data);
-    createGazePlot(data);
+    // createGazePlot(data);
     createFixationPlot(data);
     createBrushMap(data);
 

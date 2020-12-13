@@ -34,6 +34,9 @@ def analysis_1(img_url,file_name,x_col,y_col,time_col,distance,duration, label):
     data["Scaled_Y"] = pd.DataFrame(y_scaled)
     data["algorithm"] = label
     data = data.drop([x_col,y_col,"index"],axis=1)
+    # data = data.loc[data.label == 1].iloc[::2]
+    data = data.iloc[::2]
+    print ("Rows 1", data.shape[0])
     json_ret = data.to_dict('records')
     return json_ret
 
@@ -61,6 +64,9 @@ def analysis_2(img_url,file_name,x_col,y_col,time_col,velocity,accleration, labe
     # print(len(data1[data1["label"]==2]))
     # print(data1)
     data1 = data1.drop([x_col,y_col,"index"],axis=1)
+    # data1 = data1.loc[data1.label == 1].iloc[::2]
+    data1 = data1.iloc[::2]
+    print ("Rows 2", data1.shape[0])
     json_ret = data1.to_dict('records')
     return json_ret
 
@@ -70,8 +76,10 @@ def fixation_plot(list_of_points,algorithm):
     y = []
     t= []
     ret= []
+    iterations = 0
     for dict_ in list_of_points:
-        if dict_["label"] ==2:
+        # if iterations % 1 == 0:
+        if dict_["label"] == 2:
             counter+=1
             x.append(dict_["Scaled_X"])
             y.append(dict_["Scaled_Y"])
@@ -91,6 +99,8 @@ def fixation_plot(list_of_points,algorithm):
                 x = []
                 y = []
                 t=[]
+        # iterations += 1
+    print ("Size, ", len(ret))
     return ret
 
 def normalize(img_url,list_of_points):

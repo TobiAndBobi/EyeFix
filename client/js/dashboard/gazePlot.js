@@ -15,7 +15,12 @@ function createGazePlot(brushedData=null) {
         graphCopy = JSON.parse(JSON.stringify(brushedData));
     }
     var graph =  graphCopy["gazeAndDensity"];
+
+    var neededFixationTraces = ["algorithm1 - participant1", "algorithm1 - participant2", "algorithm1 - participant3"];
+
     var reshapeGraph = d3.nest().key(function(d) { return d.algorithm;}).entries(graph);
+    console.log("The Keys for gaze",Object.keys(reshapeGraph));
+    console.log(reshapeGraph);
     var reshapeGraphLength = reshapeGraph.length;
     console.log("gaze",reshapeGraph.length);
     var allGroup = []; 
@@ -26,12 +31,14 @@ function createGazePlot(brushedData=null) {
     //     data[i]["Scaled_Y"] = height * data[i]["Scaled_Y"];
     // }
     for (var i=0; i < reshapeGraphLength; i++ ) {
-        allGroup.push(reshapeGraph[i].key);
-        values = reshapeGraph[i].values;
-        valuesLength = values.length; 
-        for (var j=0; j < valuesLength; j++ ) {
-            values[j]["Scaled_X"] = width * values[j]["Scaled_X"];
-            values[j]["Scaled_Y"] = height * values[j]["Scaled_Y"];
+        if (neededFixationTraces.includes(reshapeGraph[i].key)) {
+            allGroup.push(reshapeGraph[i].key);
+            values = reshapeGraph[i].values;
+            valuesLength = values.length; 
+            for (var j=0; j < valuesLength; j++ ) {
+                values[j]["Scaled_X"] = width * values[j]["Scaled_X"];
+                values[j]["Scaled_Y"] = height * values[j]["Scaled_Y"];
+            }
         }
     }
 

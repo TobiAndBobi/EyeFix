@@ -253,7 +253,7 @@ function createFixationPlot(brushedData=null) {
         if (!d3.event.selection) {
             extent = d3.event.selection;
             createBrushMap();
-            createGazePlot();
+            // createGazePlot();
             createFixationPlot();
             createHeatMap();
         } else {
