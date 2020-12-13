@@ -4,8 +4,8 @@ function inputToURL(inputElement) {
 }
 
 function createFixationPlot(brushedData=null) {
-    width = 430;
-    height = 285;
+    width = 430 * controlTopGraphSize;
+    height = 285 * controlTopGraphSize;
     $("#fixationPlotContent").empty();
     var title = '<h6 class="m-b-20">Fixation Plot</h6>';
     $("#fixationPlotContent").append(title);

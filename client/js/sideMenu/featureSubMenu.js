@@ -1,6 +1,6 @@
 function createFeaturesSectionOfSideMenu() {
     $("#featureContent").empty();
-    var title = '<h6 class="m-b-20">Features</h6>';
+    var title = '<h6 class="m-b-20">Algorithm Specific Features</h6>';
     var algorithms = initialData["settings"];
     var algorithmLength = algorithms.length;
     var featureOptions = [];

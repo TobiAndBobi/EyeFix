@@ -437,12 +437,31 @@ var myCircle = svg.append('g')
     //     )
 
 
-    if (finalSettingsLength == 2 || finalSettingsLength == 1 || finalSettingsLength == 3 || finalSettingsLength == 4) {
-        var graphKeys = '<p class="m-b-0">Black parts of the graph are saccades, The colored parts are fixations of the respective algorithm/participants</p>';
+    // if (finalSettingsLength == 2 || finalSettingsLength == 1 || finalSettingsLength == 3 || finalSettingsLength == 4) {
+    //     var graphKeys = '<p class="m-b-0">Black parts of the graph are saccades, The colored parts are fixations of the respective algorithm/participants</p>';
+    //     $("#brushMapContent").append(graphKeys);
+    // } else {
+    //     var graphKeys = '<br>' +
+    //         '<p class="m-b-0">One can you use this time series plot highligth portion of the Gaze, Fixation and Density Graphs by the means of Linked Brushing !</p>';
+    //     $("#brushMapContent").append(graphKeys);
+    // }
+
+    if (allGroup.length > 0) {
+        console.log("allGroup Length", allGroup.length);
+        let keyMap =  [];
+        for (var i=0; i < allGroup.length; i++) {
+            console.log(myColor(allGroup[i]));
+            singleKey = '<span class="timebox" style="background-color:' + myColor(allGroup[i]) + ' ;">' + allGroup[i] + '</span>';
+            keyMap.push(singleKey);
+        }
+        var graphKeys = '<br><p class="m-b-0">Black parts of the graph are saccades, The colored parts are fixations of the respective algorithm/participants</p><div class="keyMappingBoxTimeline"><p class="m-b-0">' + keyMap.join('') + '</p></div>';
+        // var graphKeys = '<br>' +
+        // '<p class="m-b-0"><div><div class="box green"></div>' + allGroup[0] + '</div></p>' +
+        // '<p class="m-b-0"><div><div class="box orange"></div>' + allGroup[1] + '</div></p>';
         $("#brushMapContent").append(graphKeys);
     } else {
         var graphKeys = '<br>' +
-            '<p class="m-b-0">One can you use this time series plot highligth portion of the Gaze, Fixation and Density Graphs by the means of Linked Brushing !</p>';
+        '<p class="m-b-0">One can you use this time series plot highligth portion of the Gaze, Fixation and Density Graphs by the means of Linked Brushing !</p></p>';
         $("#brushMapContent").append(graphKeys);
     }
 
@@ -606,7 +625,7 @@ var myCircle = svg.append('g')
             if (!d3.event.selection) {
                 console.log("Clear Selections");
                 createBrushMap();
-                createGazePlot();
+                // createGazePlot();
                 createFixationPlot();
                 createHeatMap();
             } else {

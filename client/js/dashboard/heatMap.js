@@ -47,8 +47,8 @@ function createForEachAlgorithmDensities(svg, x, y, key, data, contourColor) {
 }
 
 function createHeatMap(brushedData=null) {
-    width = 430;
-    height = 285;
+    width = 430 * controlTopGraphSize;
+    height = 285 * controlTopGraphSize;
     $("#heatMapContent").empty();
     var title = '<h6 class="m-b-20">Heat Map</h6>';
     $("#heatMapContent").append(title);

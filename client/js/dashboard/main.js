@@ -214,7 +214,7 @@ function newMultiBrushRerender(mySelections,time_dict){
         }
     }
     console.log(data);
-    createGazePlot(data);
+    // createGazePlot(data);
     createFixationPlot(data); 
     createHeatMap(data);
 }

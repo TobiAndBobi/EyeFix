@@ -4,8 +4,10 @@ function inputToURL(inputElement) {
 }
 
 function createGazePlot(brushedData=null) {
-    width = 430;
-    height = 285;
+    width = 430 * controlTopGraphSize;
+    height = 285 * controlTopGraphSize;
+    // width = controlTopGraphWidth;
+    // height = controlTopGraphHeight;
     $("#gazePlotContent").empty();
     var title = '<h6 class="m-b-20">Gaze Plot</h6>';
     $("#gazePlotContent").append(title);
@@ -30,6 +32,8 @@ function createGazePlot(brushedData=null) {
     //     data[i]["Scaled_X"] = width * data[i]["Scaled_X"];
     //     data[i]["Scaled_Y"] = height * data[i]["Scaled_Y"];
     // }
+
+    var copyReshapeGraph = [];
     for (var i=0; i < reshapeGraphLength; i++ ) {
         if (neededFixationTraces.includes(reshapeGraph[i].key)) {
             allGroup.push(reshapeGraph[i].key);
@@ -39,8 +43,11 @@ function createGazePlot(brushedData=null) {
                 values[j]["Scaled_X"] = width * values[j]["Scaled_X"];
                 values[j]["Scaled_Y"] = height * values[j]["Scaled_Y"];
             }
+            copyReshapeGraph.push(reshapeGraph[i]);
         }
     }
+
+    reshapeGraph = copyReshapeGraph;
 
     // data = data.slice(0,10);
 
@@ -88,30 +95,32 @@ function createGazePlot(brushedData=null) {
 
 
     for(var i=0; i < reshapeGraph.length; i++) {
-        let data = reshapeGraph[i]["values"]
+        if (neededFixationTraces.includes(reshapeGraph[i].key)) {
+            let data = reshapeGraph[i]["values"];
 
-        // Add dots
-        svg.append('g')
-        .selectAll("dot")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) { return x(d.Scaled_X); } )
-        .attr("cy", function (d) { return y(d.Scaled_Y); } )
-        .attr("r", 3)
-        .style("fill", myColor(allGroup[i]))
-        .style("opacity", 0.5);
+            // Add dots
+            svg.append('g')
+            .selectAll("dot")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) { return x(d.Scaled_X); } )
+            .attr("cy", function (d) { return y(d.Scaled_Y); } )
+            .attr("r", 3)
+            .style("fill", myColor(allGroup[i]))
+            .style("opacity", 0.5);
 
-        // Add the line
-        svg.append("path")
-            .datum(data)
-            .attr("fill", "none")
-            .attr("stroke",  myColor(allGroup[i]))
-            .attr("stroke-width", 1.5)
-            .attr("d", d3.line()
-            .x(function(d) { return x(d.Scaled_X); })
-            .y(function(d) { return y(d.Scaled_Y); })
-            );
+            // Add the line
+            svg.append("path")
+                .datum(data)
+                .attr("fill", "none")
+                .attr("stroke",  myColor(allGroup[i]))
+                .attr("stroke-width", 1.5)
+                .attr("d", d3.line()
+                .x(function(d) { return x(d.Scaled_X); })
+                .y(function(d) { return y(d.Scaled_Y); })
+                );
+        }
     }    
 
     if (allGroup.length > 0) {

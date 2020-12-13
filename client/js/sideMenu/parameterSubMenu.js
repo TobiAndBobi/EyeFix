@@ -1,6 +1,6 @@
 function createParametersSectionOfSideMenu() {
     $("#parameterContent").empty();
-    var title = '<h6 class="m-b-20">Parameters</h6>';
+    var title = '<h6 class="m-b-20">Hyperparameters</h6>';
     var algorithms = initialData["settings"];
     var algorithmLength = algorithms.length;
     var parameterOptions = [];
