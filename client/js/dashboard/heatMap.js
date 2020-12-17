@@ -98,7 +98,7 @@ function createHeatMap(brushedData=null) {
     // A color scale: one color for each group
     var myColor = d3.scaleOrdinal()
         .domain(allGroup)
-        .range(d3.schemeSet2);
+        .range(colorSchemeEyeTrace);
 
     // Add X axis
     var x = d3.scaleLinear()
@@ -142,14 +142,63 @@ function createHeatMap(brushedData=null) {
     }
 
     // Add brushing
-    svg
-    .call(d3.brush()                 // Add the brush feature using the d3.brush function
-        .extent([[0, 0], [width, height]]) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
-        // .on("start brush", updateHeatChart) // Each time the brush selection changes, trigger the 'updateHeatChart' function
-        .on("end", heatBrushended)
-    )
+    // svg
+    // .call(d3.brush()                 // Add the brush feature using the d3.brush function
+    //     .extent([[0, 0], [width, height]]) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+    //     // .on("start brush", updateHeatChart) // Each time the brush selection changes, trigger the 'updateHeatChart' function
+    //     .on("end", heatBrushended)
+    // )
 
-    function heatBrushended() {
+    // function heatBrushended() {
+    //     if (!d3.event.selection) {
+    //         extent = d3.event.selection;
+    //         createBrushMap();
+    //         // createGazePlot();
+    //         createFixationPlot();
+    //         createHeatMap();
+    //     } else {
+    //         console.log("GG");
+    //         extent = d3.event.selection;
+    //         console.log("Draw new graph");
+    //         // console.log(extent);
+    //         reRenderBasedOnHeatMap(extent, x, y);
+    //     }
+    // }
+
+    var gBrushes = svg.append('g')
+  .attr("class", "brushes");
+
+    // We also keep the actual d3-brush functions and their IDs in a list:
+    var brushes = [];
+
+    /* CREATE NEW BRUSH
+    *
+    * This creates a new brush. A brush is both a function (in our array) and a set of predefined DOM elements
+    * Brushes also have selections. While the selection are empty (i.e. a suer hasn't yet dragged)
+    * the brushes are invisible. We will add an initial brush when this viz starts. (see end of file)
+    * Now imagine the user clicked, moved the mouse, and let go. They just gave a selection to the initial brush.
+    * We now want to create a new brush.
+    * However, imagine the user had simply dragged an existing brush--in that case we would not want to create a new one.
+    * We will use the selection of a brush in brushend() to differentiate these cases.
+    */
+    function newBrush() {
+    var brush = d3.brush()
+        .on("start", brushstart)
+        .on("brush", brushed)
+        .on("end", brushend);
+
+    brushes.push({id: brushes.length, brush: brush});
+
+    function brushstart() {
+        // your stuff here  
+        extent = d3.event.selection;
+        console.log(extent);
+        // console.log(x.invert(extent[0][0]));
+        // lol();
+        // myCircle.classed("selected", function (d) { return isBrushed(extent, x(d.Sepal_Length), y(d.Petal_Length)) })
+    };
+
+    function brushed() {
         if (!d3.event.selection) {
             extent = d3.event.selection;
             createBrushMap();
@@ -160,9 +209,91 @@ function createHeatMap(brushedData=null) {
             console.log("GG");
             extent = d3.event.selection;
             console.log("Draw new graph");
-            // console.log(extent);
-            reRenderBasedOnHeatMap(extent, x, y);
+            console.log(extent);
+            let extendArr = [];
+            console.log(brushes);
+            for(brush of brushes){
+                console.log(brush);
+                extendArr.push(d3.brushSelection(document.getElementById("brushheat-" + brush.id)));
+                console.log("Thevdiya");
+                console.log(extendArr);
+            }
+            reRenderBasedOnHeatMap(extendArr, x, y);
         }
     }
+
+    function brushend() {
+        if (!d3.event.selection) {
+            extent = d3.event.selection;
+            createBrushMap();
+            // createGazePlot();
+            createFixationPlot();
+            createHeatMap();
+        }else{
+            // Figure out if our latest brush has a selection
+            var lastBrushID = brushes[brushes.length - 1].id;
+            var lastBrush = document.getElementById('brushheat-' + lastBrushID);
+            var selection = d3.brushSelection(lastBrush);
+
+            // If it does, that means we need another one
+            if (selection && selection[0] !== selection[1]) {
+            newBrush();
+            }
+
+            // Always draw brushes
+            drawBrushes();
+        }
+    }
+    }
+
+    function drawBrushes() {
+
+    var brushSelection = gBrushes
+        .selectAll('.brush')
+        .data(brushes, function (d){return d.id});
+
+        // Set up new brushes
+    brushSelection.enter()
+        .insert("g", '.brush')
+        .attr('class', 'brush')
+        .attr('id', function(brush){ return "brushheat-" + brush.id; })
+        .each(function(brushObject) {
+        //call the brush
+        brushObject.brush(d3.select(this));
+        });
+
+        /* REMOVE POINTER EVENTS ON BRUSH OVERLAYS
+        *
+        * This part is abbit tricky and requires knowledge of how brushes are implemented.
+        * They register pointer events on a .overlay rectangle within them.
+        * For existing brushes, make sure we disable their pointer events on their overlay.
+        * This frees the overlay for the most current (as of yet with an empty selection) brush to listen for click and drag events
+        * The moving and resizing is done with other parts of the brush, so that will still work.
+        */
+    brushSelection
+        .each(function (brushObject){
+        d3.select(this)
+            .attr('class', 'brush')
+            .selectAll('.overlay')
+            .style('pointer-events', function() {
+            var brush = brushObject.brush;
+            if (brushObject.id === brushes.length-1 && brush !== undefined) {
+                return 'all';
+            } else {
+                return 'none';
+            }
+            });
+        })
+
+    brushSelection.exit()
+        .remove();
+    }
+
+    newBrush();
+    drawBrushes();
+
+
+
+
 
 }

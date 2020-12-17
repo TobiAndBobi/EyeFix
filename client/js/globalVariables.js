@@ -15,7 +15,9 @@ selectedOption["selectedFeature"] = "HR";
 selectedOption["selectedHome"] = true;
 var currentMenuSelection = 'originalDatasetScreePlot';
 var originalGraphs = {};
-controlTopGraphSize = 0.8;
+var controlTopGraphSize = 0.8;
+var colorSchemeEyeTrace = ['#a6611a','#dfc27d','#80cdc1','#018571'];
 // controlTopGraphWidth = 0.1 * window.innerWidth;
 // controlTopGraphHeight = 0.25 * window.innerHeight;
-console.log("Width and height", window.innerWidth, window.innerHeight);
+// console.log("Width and height", window.innerWidth, window.innerHeight);
+

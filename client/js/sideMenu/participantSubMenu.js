@@ -46,8 +46,8 @@ function createParticipantSectionOfSideMenu() {
     var algorithms = initialData["settings"];
     var algorithmLength = algorithms.length;
     if (algorithmLength > 0) {
-        var addParticipantButton = '<button type="button" class="btn btn-light" onclick="addParticipant()">Add participant</button><br>';
-        var removeParticipantButton = '<button type="button" class="btn btn-light" onclick="removeParticipant()">Remove participant</button><br>';
+        var addParticipantButton = '<button type="button" class="btn btn-light" onclick="addParticipant()">Add</button><br>';
+        var removeParticipantButton = '<button type="button" class="btn btn-light" onclick="removeParticipant()">Remove</button><br>';
         var addAndRemoveParticipants = '<div class="row"><div class="col-sm-12 col-md-6 col-lg-6">' + addParticipantButton + '</div><div class="col-sm-12 col-md-6 col-lg-6">' + removeParticipantButton + '</div></div>';
         var participantList = '<div id="participantList"></div>';
         $("#participantContent").append(title);

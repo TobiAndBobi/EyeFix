@@ -76,7 +76,7 @@ function createGazePlot(brushedData=null) {
     // A color scale: one color for each group
     var myColor = d3.scaleOrdinal()
         .domain(allGroup)
-        .range(d3.schemeSet2);
+        .range(colorSchemeEyeTrace);
         
     // Add X axis
     var x = d3.scaleLinear()

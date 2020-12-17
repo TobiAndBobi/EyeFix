@@ -228,23 +228,17 @@ function createBrushMap(brushedData=null) {
     var finalSettingsLength = Object.keys(checkCount).length;
     // console.log("final length", finalSettingsLength);
     // console.log(finalSettings);
-    var value = 0;
-    if (finalSettingsLength == 1) {
-        value = 100;
-    } else {
-        value = 600;
-    }
-
-    // set the dimensions and margins of the graph
-    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-        width = 1400 - margin.left - margin.right,
-        height = value - margin.top - margin.bottom;
+    // if (finalSettingsLength == 1) {
+    //     value = 100;
+    // } else {
+    //     value = 200;
+    // }
 
     // width = 330;
     // height = 100;        
 
     $("#brushMapContent").empty();
-    var title = '<h6 class="m-b-20">Time Series Brush Map</h6>';
+    var title = '<h6 class="m-b-20">Timeline : Black region in the below visulization represent saccades, the coloured regions indicate fixations for respective algorithm-participant</h6>';
     $("#brushMapContent").append(title);
     // var graph = JSON.parse(JSON.stringify(graphs));
     if (brushedData == null) {
@@ -261,7 +255,7 @@ function createBrushMap(brushedData=null) {
     }
     var myColor = d3.scaleOrdinal()
         .domain(allGroup)
-        .range(d3.schemeSet2);
+        .range(colorSchemeEyeTrace);
     var normalisedDataLength = data.length;
     // console.log(data);
     var minTime = Infinity;
@@ -284,6 +278,22 @@ function createBrushMap(brushedData=null) {
         // data[i]["Scaled_X"] = width * data[i]["Scaled_X"];
         // data[i]["Scaled_Y"] = height * data[i]["Scaled_Y"];
     }
+
+    var value = 0;
+
+    var allGroupLength = allGroup.length;
+    if ((allGroupLength == 1) || (allGroupLength == 1)) {
+        value = 100;
+    } else {
+        value = allGroupLength * 50;
+    }
+    
+
+    // set the dimensions and margins of the graph
+    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+        width = 1400 - margin.left - margin.right,
+        height = value - margin.top - margin.bottom;
+
     // data = data.slice(0,10);
     minTime = 0;
     maxTime = time_dict[algo_max]["max_time"] - time_dict[algo_max]["min_time"];
@@ -338,7 +348,7 @@ function createBrushMap(brushedData=null) {
     // finalSettingsLength = time_dict.length;
     finalSettingsLength = Object.keys(time_dict).length;
     var y = d3.scaleLinear()
-        .domain([0, finalSettingsLength])
+        .domain([0, allGroupLength])
         .range([height, 0]);
     // svg.append("g")
     //     .call(d3.axisLeft(y).ticks(finalSettingsLength));
@@ -353,9 +363,9 @@ var myCircle = svg.append('g')
     .enter()
     .append("rect")
     .attr("x", function (d) { return x(d["Time"]); })
-    .attr("y", function (d) { return y(test(d["algorithm"], finalSettingsLength)); })
+    .attr("y", function (d) { return y(test(d["algorithm"], allGroupLength)); })
     .attr("width", 3)
-    .attr("height", 30)
+    .attr("height", 20)
     .style("fill", function (d) { return colorSelection(d["label"],d["algorithm"],myColor,color) })
     .style("opacity", 0.5);
     // console.log("count_1",count_1);
@@ -421,7 +431,7 @@ var myCircle = svg.append('g')
 
     svg.append('g')
         // .attr('class', 'axis axis--y')
-        .call(d3.axisLeft(y).ticks(finalSettingsLength));
+        .call(d3.axisLeft(y).ticks(allGroupLength));
 
 
 
@@ -454,7 +464,7 @@ var myCircle = svg.append('g')
             singleKey = '<span class="timebox" style="background-color:' + myColor(allGroup[i]) + ' ;">' + allGroup[i] + '</span>';
             keyMap.push(singleKey);
         }
-        var graphKeys = '<br><p class="m-b-0">Black parts of the graph are saccades, The colored parts are fixations of the respective algorithm/participants</p><div class="keyMappingBoxTimeline"><p class="m-b-0">' + keyMap.join('') + '</p></div>';
+        var graphKeys = '<br><div class="keyMappingBoxTimeline"><p class="m-b-0">' + keyMap.join('') + '</p></div>';
         // var graphKeys = '<br>' +
         // '<p class="m-b-0"><div><div class="box green"></div>' + allGroup[0] + '</div></p>' +
         // '<p class="m-b-0"><div><div class="box orange"></div>' + allGroup[1] + '</div></p>';
