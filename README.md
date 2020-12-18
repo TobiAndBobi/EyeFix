@@ -1,1 +1,3 @@
-# EyeTracking
+# EyeFIX
+
+## Instructions to run:
